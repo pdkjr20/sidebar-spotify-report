@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Side Bar Playlist Report</title>
+<style>
+  :root {
+    --green: #1DB954;
+    --dark: #121212;
+    --card: #1E1E1E;
+    --card2: #282828;
+    --text: #FFFFFF;
+    --muted: #B3B3B3;
+    --accent: #1DB954;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--dark); color: var(--text); font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; }
+  a { color: var(--green); }
+
+  .hero {
+    background: linear-gradient(135deg, #0a3d1f 0%, #121212 60%);
+    padding: 60px 40px 50px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+  }
+  .hero h1 { font-size: 3em; font-weight: 900; letter-spacing: -1px; }
+  .hero h1 span { color: var(--green); }
+  .hero p { color: var(--muted); font-size: 1.1em; margin-top: 10px; }
+
+  .stats-bar {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;
+    padding: 30px 40px; background: var(--card2); border-bottom: 1px solid #333;
+  }
+  .stat { text-align: center; min-width: 120px; }
+  .stat .num { font-size: 2.2em; font-weight: 900; color: var(--green); }
+  .stat .label { font-size: 0.8em; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+
+  h2 { font-size: 1.6em; font-weight: 800; margin-bottom: 20px; border-left: 4px solid var(--green); padding-left: 14px; }
+  h3 { font-size: 1.15em; font-weight: 700; margin-bottom: 10px; color: var(--green); }
+
+  .section { margin-bottom: 55px; }
+
+  /* Genre bars */
+  .genre-bar { margin-bottom: 8px; }
+  .genre-label { display: flex; justify-content: space-between; font-size: 0.85em; margin-bottom: 3px; }
+  .genre-label .name { color: var(--text); text-transform: capitalize; }
+  .genre-label .count { color: var(--muted); }
+  .bar-track { background: #333; border-radius: 4px; height: 8px; }
+  .bar-fill { background: var(--green); border-radius: 4px; height: 8px; transition: width 1s; }
+
+  /* Contributor cards */
+  .contrib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+  .contrib-card {
+    background: var(--card2); border-radius: 12px; padding: 22px;
+    border: 1px solid #333; transition: border-color 0.2s;
+  }
+  .contrib-card:hover { border-color: var(--green); }
+  .contrib-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+  .contrib-name { font-size: 1.1em; font-weight: 800; }
+  .contrib-badge { background: var(--green); color: #000; font-size: 0.72em; font-weight: 800; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+  .contrib-meta { font-size: 0.8em; color: var(--muted); margin-bottom: 12px; }
+  .contrib-meta strong { color: var(--text); }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag { background: #333; border-radius: 20px; padding: 3px 10px; font-size: 0.75em; color: var(--muted); text-transform: capitalize; }
+  .tag.artist { background: #1a3a27; color: #7dffb3; }
+  .personality { font-size: 0.85em; color: var(--muted); margin-top: 12px; font-style: italic; border-top: 1px solid #333; padding-top: 10px; }
+
+  /* Playlist table */
+  .pl-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+  .pl-table th { background: #1a3a27; color: var(--green); text-align: left; padding: 10px 12px; font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.5px; }
+  .pl-table td { padding: 9px 12px; border-bottom: 1px solid #2a2a2a; vertical-align: top; }
+  .pl-table tr:hover td { background: #252525; }
+  .pl-name { font-weight: 600; }
+  .pl-year { color: var(--green); font-weight: 700; }
+  .pl-count { color: var(--muted); text-align: right; }
+
+  /* Year group headers */
+  .year-row td { background: #1a1a1a; color: var(--muted); font-size: 0.78em; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; padding: 6px 12px; }
+
+  /* Insights */
+  .insight-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .insight-card {
+    background: var(--card2); border-radius: 12px; padding: 20px;
+    border: 1px solid #333;
+  }
+  .insight-card .icon { font-size: 2em; margin-bottom: 8px; }
+  .insight-card .title { font-weight: 700; font-size: 0.95em; margin-bottom: 6px; }
+  .insight-card .body { font-size: 0.85em; color: var(--muted); }
+  .insight-card .body strong { color: var(--text); }
+
+  /* Top artists */
+  .artist-chip {
+    display: inline-block; background: #282828; border: 1px solid #444;
+    border-radius: 6px; padding: 6px 14px; margin: 5px 5px 0 0;
+    font-size: 0.85em;
+  }
+  .artist-chip .rank { color: var(--green); font-weight: 800; margin-right: 6px; }
+
+  footer { text-align: center; color: #555; font-size: 0.8em; padding: 30px; border-top: 1px solid #222; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🎸 The <span>Side Bar</span> Playlist Report</h1>
+  <p>A data deep-dive into Gareth's Spotify universe — the music behind your Friday nights</p>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="num">104</div><div class="label">Playlists</div></div>
+  <div class="stat"><div class="num">10,259</div><div class="label">Track Adds</div></div>
+  <div class="stat"><div class="num">3,437</div><div class="label">Unique Songs</div></div>
+  <div class="stat"><div class="num">1,422</div><div class="label">Unique Artists</div></div>
+  <div class="stat"><div class="num">27</div><div class="label">Contributors</div></div>
+  <div class="stat"><div class="num">~10 yrs</div><div class="label">Of Music History</div></div>
+</div>
+
+<div class="container">
+
+  <!-- ─── GENRE LANDSCAPE ─── -->
+  <div class="section">
+    <h2>The Sound of the Porch</h2>
+    <p style="color:var(--muted); margin-bottom:20px; font-size:0.9em;">Genre tags across all 1,422 unique artists in the collection. This is the Side Bar's musical DNA.</p>
+    <div style="max-width:650px;">
+      <div class="genre-bar"><div class="genre-label"><span class="name">Country</span><span class="count">61 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Classic Rock</span><span class="count">58 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Old School Hip Hop</span><span class="count">50 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Rock</span><span class="count">38 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:62%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">East Coast Hip Hop</span><span class="count">36 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:59%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Post-Grunge</span><span class="count">36 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:59%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">New Wave</span><span class="count">36 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:59%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Yacht Rock</span><span class="count">34 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:56%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Hard Rock</span><span class="count">32 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:52%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Glam Rock / Glam Metal</span><span class="count">29 / 28 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:47%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Grunge</span><span class="count">28 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:46%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Classic Country</span><span class="count">28 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:46%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Alternative Rock</span><span class="count">27 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:44%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Hip Hop</span><span class="count">26 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:43%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Soft Rock</span><span class="count">24 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:39%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Jam Band</span><span class="count">22 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:36%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Southern Rock</span><span class="count">21 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:34%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Punk / Proto-Punk</span><span class="count">20 / 21 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:34%"></div></div></div>
+      <div class="genre-bar"><div class="genre-label"><span class="name">Synthpop</span><span class="count">20 artists</span></div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></div>
+    </div>
+    <p style="margin-top:18px; font-size:0.85em; color:var(--muted);">
+      <strong style="color:var(--text);">The verdict:</strong> The Side Bar has a rock spine — classic rock, grunge, and alternative anchor everything — with serious hip hop credentials (old school and east coast) and a surprising country contingent. Yacht rock making a strong showing tells you Meredith's influence is real.
+    </p>
+  </div>
+
+  <!-- ─── TOP ARTISTS ─── -->
+  <div class="section">
+    <h2>Most-Played Artists</h2>
+    <p style="color:var(--muted); margin-bottom:16px; font-size:0.9em;">Appearances across all 10,259 track adds. One artist runs away with it.</p>
+    <div>
+      <span class="artist-chip"><span class="rank">1</span>Pearl Jam — 776</span>
+      <span class="artist-chip"><span class="rank">2</span>Red Hot Chili Peppers — 252</span>
+      <span class="artist-chip"><span class="rank">3</span>Beastie Boys — 119</span>
+      <span class="artist-chip"><span class="rank">4</span>Eddie Vedder — 107</span>
+      <span class="artist-chip"><span class="rank">5</span>Sublime — 102</span>
+      <span class="artist-chip"><span class="rank">6</span>The Beatles — 74</span>
+      <span class="artist-chip"><span class="rank">7</span>Tom Petty — 65</span>
+      <span class="artist-chip"><span class="rank">8</span>Soundgarden — 63</span>
+      <span class="artist-chip"><span class="rank">9</span>Nirvana — 62</span>
+      <span class="artist-chip"><span class="rank">10</span>Phish — 59</span>
+      <span class="artist-chip"><span class="rank">11</span>Led Zeppelin — 57</span>
+      <span class="artist-chip"><span class="rank">12</span>The Rolling Stones — 55</span>
+      <span class="artist-chip"><span class="rank">13</span>The Replacements — 53</span>
+      <span class="artist-chip"><span class="rank">14</span>Billy Joel — 51</span>
+      <span class="artist-chip"><span class="rank">15</span>Bob Dylan — 48</span>
+      <span class="artist-chip"><span class="rank">16</span>Bruce Springsteen — 47</span>
+      <span class="artist-chip"><span class="rank">17</span>The Clash — 45</span>
+      <span class="artist-chip"><span class="rank">18</span>Johnny Cash — 44</span>
+      <span class="artist-chip"><span class="rank">19</span>Foo Fighters — 43</span>
+      <span class="artist-chip"><span class="rank">20</span>Chris Cornell — 42</span>
+    </div>
+    <p style="margin-top:16px; font-size:0.85em; color:var(--muted);">
+      Pearl Jam appears <strong style="color:var(--text);">776 times</strong> — 3x more than #2 RHCP. Add in Eddie Vedder solo and you're looking at <strong style="color:var(--text);">883 Pearl Jam-universe plays</strong>. This is not a music collection. This is a Pearl Jam shrine that tolerates other bands.
+    </p>
+  </div>
+
+  <!-- ─── CONTRIBUTOR PROFILES ─── -->
+  <div class="section">
+    <h2>Who's Adding What</h2>
+    <p style="color:var(--muted); margin-bottom:20px; font-size:0.9em;">Musical fingerprints for every porch regular who contributed to the playlists.</p>
+    <div class="contrib-grid">
+
+      <!-- Gareth -->
+      <div class="contrib-card">
+        <div class="contrib-header">
+          <div class="contrib-name">🎸 Gareth Ouellette</div>
+          <div class="contrib-badge">THE CURATOR</div>
+        </div>
+        <div class="contrib-meta">
+          <strong>8,416 adds</strong> · 3,085 unique songs · <strong>82% of the entire collection</strong>
+        </div>
+        <h3>Top Artists</h3>
+        <div class="tag-list">
+          <span class="tag artist">Pearl Jam ×623</span>
+          <span class="tag artist">RHCP ×224</span>
+          <span class="tag artist">Beastie Boys ×106</span>
+          <span class="tag artist">Eddie Vedder ×102</span>
+          <span class="tag artist">Sublime ×95</span>
+        </div>
+        <h3 style="margin-top:12px;">Signature Genres</h3>
+        <div class="tag-list">
+          <span class="tag">Rock ×1,604</span>
+          <span class="tag">Classic Rock ×1,110</span>
+          <span class="tag">Grunge ×905</span>
+          <span class="tag">Post-Grunge ×861</span>
+          <span class="tag">Alternative Rock ×537</span>
+        </div>
+        <div class="personality">The architect of the whole thing. Gareth doesn't just listen to Pearl Jam — he has assembled what may be the most comprehensive Pearl Jam playlist collection on the platform. 623 PJ adds. That's not fandom, that's devotion. Everything else — the hip hop, the classic rock, the grunge — orbits around that gravitational center.</div>
+      </div>
+
+      <!-- Meredith -->
+      <div class="contrib-card">
+        <div class="contrib-header">
+          <div class="contrib-name">⛵ Meredith</div>
+          <div class="contrib-badge">YACHT ROCK CAPTAIN</div>
+        </div>
+        <div class="contrib-meta">
+          <strong>873 adds</strong> · 648 unique songs · 8.5% of the collection
+        </div>
+        <h3>Top Artists</h3>
+        <div class="tag-list">
+          <span class="tag artist">The Beatles ×24</span>
+          <span class="tag artist">Pearl Jam ×18</span>
+          <span class="tag artist">Billy Joel ×17</span>
+          <span class="tag artist">Little River Band ×14</span>
+          <span class="tag artist">Train ×12</span>
+        </div>
+        <h3 style="margin-top:12px;">Signature Genres</h3>
+        <div class="tag-list">
+          <span class="tag">Classic Rock ×97</span>
+          <span class="tag">Soft Rock ×73</span>
+          <span class="tag">Yacht Rock ×70</span>
+          <span class="tag">Rock ×61</span>
+          <span class="tag">New Wave ×51</span>
+        </div>
+        <div class="personality">Meredith is the counterbalance to Gareth's grunge intensity. She smooths out the edges — Beatles, Billy Joel, Little River Band, Train. Yacht rock is her signature move. When you're drifting into smoother sonic waters on a Friday night, that's Meredith at the wheel. She's also a closet PJ fan (18 adds), which earns her permanent porch residency.</div>
+      </div>
+
+      <!-- PK -->
+      <div class="contrib-card">
+        <div class="contrib-header">
+          <div class="contrib-name">🗿 PK (Paul)</div>
+          <div class="contrib-badge">ALTERNATIVE ELDER</div>
+        </div>
+        <div class="contrib-meta">
+          <strong>274 adds</strong> · 256 unique songs · 2.7% of the collection
+        </div>
+        <h3>Top Artists</h3>
+        <div class="tag-list">
+          <span class="tag artist">Pearl Jam ×122</span>
+          <span class="tag artist">Lou Reed ×6</span>
+          <span class="tag artist">Iggy Pop ×6</span>
+          <span class="tag artist">David Bowie ×6</span>
+          <span class="tag artist">Led Zeppelin ×5</span>
+        </div>
+        <h3 style="margin-top:12px;">Signature Genres</h3>
+        <div class="tag-list">
+          <span class="tag">Rock ×136</span>
+          <span class="tag">Grunge ×125</span>
+          <span class="tag">Post-Grunge ×124</span>
+          <span class="tag">New Wave ×30</span>
+          <span class="tag">Classic Rock ×30</span>
+        </div>
+        <div class="personality">You're Pearl Jam faithful (122 adds) but your supporting cast tells a deeper story — Lou Reed, Iggy Pop, Bowie, Zeppelin. You're tracing the lineage, connecting punk's grandfathers to grunge's peak. You know WHY Pearl Jam matters. You add fewer songs than anyone but your taste is immaculate and deliberate.</div>
+      </div>
+
+      <!-- Pam -->
+      <div class="contrib-card">
+        <div class="contrib-header">
+          <div class="contrib-name">🎲 Pam</div>
+          <div class="contrib-badge">THE WILDCARD</div>
+        </div>
+        <div class="contrib-meta">
+          <strong>163 adds</strong> · 155 unique songs · 1.6% of the collection
+        </div>
+        <h3>Top Artists</h3>
+        <div class="tag-list">
+          <span class="tag artist">Zach Bryan ×3</span>
+          <span class="tag artist">Paul Simon ×3</span>
+          <span class="tag artist">Jim Croce ×3</span>
+          <span class="tag artist">J. Geils Band ×3</span>
+          <span class="tag artist">Third Eye Blind ×3</span>
+        </div>
+        <h3 style="margin-top:12px;">Signature Genres</h3>
+        <div class="tag-list">
+          <span class="tag">Classic Rock ×21</span>
+          <span class="tag">New Wave ×13</span>
+          <span class="tag">Singer-Songwriter ×9</span>
+          <span class="tag">Rock ×8</span>
+          <span class="tag">Country ×7</span>
+        </div>
+        <div class="personality">Pam defies easy categorization — and that's the best thing you can say about someone's music taste. No single artist shows up more than 3 times, which means she's adding breadth, not depth. Jim Croce to Zach Bryan to J. Geils Band — she's plugging gaps the others leave open. The porch is more interesting because of her chaos.</div>
+      </div>
+
+      <!-- Todd Stakem -->
+      <div class="contrib-card">
+        <div class="contrib-header">
+          <div class="contrib-name">🎤 Todd Stakem</div>
+          <div class="contrib-badge">GRUNGE FAITHFUL</div>
+        </div>
+        <div class="contrib-meta">
+          <strong>26 adds</strong> · 26 unique songs
+        </div>
+        <h3>Top Artists</h3>
+        <div class="tag-list">
+          <span class="tag artist">Rolling Stones ×5</span>
+          <span class="tag artist">Filter ×3</span>
+          <span class="tag artist">Chris Cornell ×3</span>
+          <span class="tag artist">Sheryl Crow ×2</span>
+          <span class="tag artist">The Refreshments ×2</span>
+        </div>
+        <h3 style="margin-top:12px;">Signature Genres</h3>
+        <div class="tag-list">
+          <span class="tag">Grunge ×14</span>
+          <span class="tag">Alternative Rock ×11</span>
+          <span class="tag">Yacht Rock ×9</span>
+          <span class="tag">Classic Rock ×9</span>
+          <span class="tag">Post-Grunge ×8</span>
+        </div>
+        <div class="personality">Fits the porch perfectly — he's in the grunge/alternative lane with a yacht rock detour that nobody would have predicted. Filter and Sheryl Crow in the same collection is peak mid-90s taste.</div>
+      </div>
+
+      <!-- Erin Stark -->
+      <div class="contrib-card">
+        <div class="contrib-header">
+          <div class="contrib-name">🤠 Erin Stark</div>
+          <div class="contrib-badge">COUNTRY QUEEN</div>
+        </div>
+        <div class="contrib-meta">
+          <strong>22 adds</strong> · 21 unique songs
+        </div>
+        <h3>Top Artists</h3>
+        <div class="tag-list">
+          <span class="tag artist">Hank Williams Jr. ×4</span>
+          <span class="tag artist">Shania Twain ×2</span>
+          <span class="tag artist">The Chicks ×2</span>
+          <span class="tag artist">Reba McEntire ×2</span>
+          <span class="tag artist">Toby Keith ×2</span>
+        </div>
+        <h3 style="margin-top:12px;">Signature Genres</h3>
+        <div class="tag-list">
+          <span class="tag">Country ×24</span>
+          <span class="tag">Classic Country ×20</span>
+          <span class="tag">Outlaw Country ×10</span>
+          <span class="tag">Country Rock ×7</span>
+          <span class="tag">Honky Tonk ×7</span>
+        </div>
+        <div class="personality">Erin arrives to the porch and immediately takes a hard left turn down a dirt road. Pure country — Hank Jr., Shania, Reba, Toby, the Chicks. She's not here to fit in with the grunge consensus. She is a one-woman country corrective and the playlists are better for it.</div>
+      </div>
+
+      <!-- Josh Stark -->
+      <div class="contrib-card">
+        <div class="contrib-header">
+          <div class="contrib-name">🌉 Josh Stark</div>
+          <div class="contrib-badge">BRIDGE BUILDER</div>
+        </div>
+        <div class="contrib-meta">
+          <strong>10 adds</strong> · 10 unique songs
+        </div>
+        <h3>Top Artists</h3>
+        <div class="tag-list">
+          <span class="tag artist">Beastie Boys ×3</span>
+          <span class="tag artist">Queen ×2</span>
+          <span class="tag artist">RHCP ×2</span>
+          <span class="tag artist">The Beatles ×2</span>
+          <span class="tag artist">Eric Church ×2</span>
+        </div>
+        <h3 style="margin-top:12px;">Signature Genres</h3>
+        <div class="tag-list">
+          <span class="tag">Rock ×13</span>
+          <span class="tag">Classic Rock ×12</span>
+          <span class="tag">Grunge ×6</span>
+          <span class="tag">Glam Metal ×6</span>
+          <span class="tag">East Coast Hip Hop ×6</span>
+        </div>
+        <div class="personality">In 10 songs Josh managed to touch Beastie Boys, Queen, RHCP, Beatles, and Eric Church. He's a generalist, a people-pleaser, or just impossibly well-rounded. Either way he reads the room well.</div>
+      </div>
+
+      <!-- Gab -->
+      <div class="contrib-card">
+        <div class="contrib-header">
+          <div class="contrib-name">🎵 Gab</div>
+          <div class="contrib-badge">GRUNGE ADJACENT</div>
+        </div>
+        <div class="contrib-meta">
+          <strong>83 adds</strong> · 83 unique songs
+        </div>
+        <h3>Top Artists</h3>
+        <div class="tag-list">
+          <span class="tag artist">Rolling Stones ×5</span>
+          <span class="tag artist">Filter ×3</span>
+          <span class="tag artist">Chris Cornell ×3</span>
+          <span class="tag artist">Sheryl Crow ×2</span>
+          <span class="tag artist">Refreshments ×2</span>
+        </div>
+        <h3 style="margin-top:12px;">Signature Genres</h3>
+        <div class="tag-list">
+          <span class="tag">Grunge ×14</span>
+          <span class="tag">Alternative Rock ×11</span>
+          <span class="tag">Yacht Rock ×9</span>
+          <span class="tag">Classic Rock ×9</span>
+          <span class="tag">Post-Grunge ×8</span>
+        </div>
+        <div class="personality">Slots right into the porch's alternative-rock mainstream. Every song Gab adds is one that nobody else would complain about. That's a talent.</div>
+      </div>
+
+      <!-- Dasha Bradshaw -->
+      <div class="contrib-card">
+        <div class="contrib-header">
+          <div class="contrib-name">🌟 Dasha Bradshaw</div>
+          <div class="contrib-badge">MODERN COUNTRY</div>
+        </div>
+        <div class="contrib-meta">
+          <strong>43 adds</strong> · 43 unique songs
+        </div>
+        <h3>Top Artists</h3>
+        <div class="tag-list">
+          <span class="tag artist">Keith Urban ×6</span>
+          <span class="tag artist">Morgan Wallen ×6</span>
+          <span class="tag artist">Taylor Swift ×4</span>
+          <span class="tag artist">Chris Stapleton ×4</span>
+          <span class="tag artist">Justin Timberlake ×4</span>
+        </div>
+        <h3 style="margin-top:12px;">Signature Genres</h3>
+        <div class="tag-list">
+          <span class="tag">Country ×29</span>
+          <span class="tag">Outlaw Country ×4</span>
+          <span class="tag">Acoustic Country ×4</span>
+          <span class="tag">Reggaeton ×4</span>
+          <span class="tag">Latin ×4</span>
+        </div>
+        <div class="personality">The modern country wing pairs with Erin's classic country — together they're keeping the genre well-represented. But then reggaeton and Latin shows up, which nobody else is touching. Dasha contains multitudes.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── INSIGHTS ─── -->
+  <div class="section">
+    <h2>Key Findings & Fun Facts</h2>
+    <div class="insight-grid">
+
+      <div class="insight-card">
+        <div class="icon">🐳</div>
+        <div class="title">The Biggest Playlist</div>
+        <div class="body"><strong>"Best of the Best"</strong> — 2,198 tracks. An omnibus of everything. It was created in Feb 2024 and is essentially the full porch canon in one place.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">📅</div>
+        <div class="title">A Decade of Fridays</div>
+        <div class="body">The oldest playlist dates to <strong>March 2016</strong> ("Meredith PJ Playlist"). You've been doing this for nearly <strong>10 years</strong> and accumulating playlists the whole time.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">🍕</div>
+        <div class="title">Pam Paul Pizza Universe</div>
+        <div class="body">There are <strong>3 distinct "pam paul pizza" playlists</strong> — the original (2019), "part deux" (2020), and "the remake" (2021). This is clearly a recurring ritual with its own soundtrack.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">🎸</div>
+        <div class="title">Pearl Jam Supremacy</div>
+        <div class="body">Pearl Jam appears <strong>776 times</strong> — plus Eddie Vedder solo for another 107. That's <strong>883 total</strong>, roughly 3x the next artist (RHCP at 252). There's also a dedicated "PJ Concert Requests" playlist, a "PJ Covers" playlist, and a "Pearl Jam 2016 — Prep for Tour" list made before the actual concert.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">📈</div>
+        <div class="title">The COVID Surge</div>
+        <div class="body">2020 produced a <strong>burst of playlist creation</strong> — 10+ new playlists in a single year including "Bad Sam Candy Fight," "Bend in Time," "Douche Cat," and "80 pound ball." The porch clearly became a lifeline.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">🏆</div>
+        <div class="title">Skippy Ball All-Stars</div>
+        <div class="body">Two playlists: "Skippy ball all-stars" (2022, 115 tracks) and "Skippy ball all-stars 2 (man hands)" (2025, 35 tracks). Whatever skippy ball is, it has its own franchise now.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">🎯</div>
+        <div class="title">Playlist Name Hall of Fame</div>
+        <div class="body">A small sampling: <strong>"Rude to the cow (barefoot dancer)"</strong> · <strong>"Neanderthal zipper"</strong> · <strong>"ThurstQuencher"</strong> · <strong>"Douche Cat"</strong> · <strong>"Meatloaf Incident"</strong> · <strong>"Chat-got"</strong> · <strong>"January Twenty Thirst (Best of)"</strong>. Every single one of these has a story.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">📻</div>
+        <div class="title">Best of Best of Best</div>
+        <div class="body">There are "best of" playlists for <strong>2020 (732 tracks), 2021 (543 tracks), 2022 (1,169 tracks), and 2023 (659 tracks)</strong> — plus a "Best of the Best" (2,198 tracks) and "January Twenty Thirst (Best of)" (492 tracks). Gareth is archiving your porch history year by year.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">🔄</div>
+        <div class="title">Repeat Offenders</div>
+        <div class="body">Only 3,437 of 10,259 adds are unique — meaning <strong>6,822 duplicate adds</strong> exist across playlists. Songs are being re-added to multiple playlists. The best songs show up everywhere because Gareth keeps pulling them back in.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">🌊</div>
+        <div class="title">Yacht Rock Is Real</div>
+        <div class="body">Yacht rock appears as a top genre for both Meredith (×70 genre hits) and Todd (×9). The porch has a legitimate soft-rock-on-the-water contingent. It's not ironic. They mean it.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">🎵</div>
+        <div class="title">Pearl Jam Goes Official</div>
+        <div class="body">The official <strong>Pearl Jam Spotify account</strong> (pearljammusic) appears as a contributor — 31 tracks added from the band's own account. The band somehow showed up to your porch playlist.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon">🐟</div>
+        <div class="title">One-Track Wonders</div>
+        <div class="body">Some playlists have a single track: "Hey Ladies" (1 track, 2016), "Jimmy the Robot" (1 track), "There's not enough road" (1 track, 2023). Three playlists that exist for exactly one song that needed its own dedicated space.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── CAMEOS ─── -->
+  <div class="section">
+    <h2>🎟️ One Night Only: The Cameo Wall</h2>
+    <p style="color:var(--muted); margin-bottom:24px; font-size:0.9em;">Not everyone who came to the Side Bar stayed long. But they were here. They added their songs. They left their mark on the wall and disappeared into the night. This section is for them.</p>
+
+    <div style="background: var(--card2); border: 1px solid #333; border-radius:16px; padding: 30px; margin-bottom:28px;">
+      <div style="font-size:0.75em; text-transform:uppercase; letter-spacing:3px; color:var(--green); margin-bottom:18px; font-weight:800;">🌟 Notable Appearances</div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap:16px;">
+
+        <div style="background:#1a1a1a; border-radius:10px; padding:18px; border-left:3px solid var(--green);">
+          <div style="font-weight:800; font-size:1em; margin-bottom:4px;">Pearl Jam <span style="font-size:0.7em; color:var(--green); font-weight:700;">✓ VERIFIED</span></div>
+          <div style="font-size:0.78em; color:var(--muted); margin-bottom:8px;">31 songs · Official Spotify account</div>
+          <div style="font-size:0.84em; color:#ccc;">The band themselves showed up and added their own songs to Gareth's playlists. Either Gareth has connections, or Pearl Jam is secretly monitoring fan accounts and choosing favorites. Either way: the artist came to the porch.</div>
+        </div>
+
+        <div style="background:#1a1a1a; border-radius:10px; padding:18px; border-left:3px solid #a855f7;">
+          <div style="font-weight:800; font-size:1em; margin-bottom:4px;">Noah French</div>
+          <div style="font-size:0.78em; color:var(--muted); margin-bottom:8px;">29 songs · The Human Shuffle Button</div>
+          <div style="font-size:0.84em; color:#ccc;">Beastie Boys → Marvin Gaye → Air Supply → Lil Jon. Nobody else on this list covers that much ground in 29 songs. Noah French arrived, hit random on his own brain, and contributed accordingly. Respect.</div>
+        </div>
+
+        <div style="background:#1a1a1a; border-radius:10px; padding:18px; border-left:3px solid #f59e0b;">
+          <div style="font-weight:800; font-size:1em; margin-bottom:4px;">Kinsey</div>
+          <div style="font-size:0.78em; color:var(--muted); margin-bottom:8px;">28 songs · The Country Reinforcement</div>
+          <div style="font-size:0.84em; color:#ccc;">Hank Williams Jr., Shania Twain, The Chicks, Reba, Toby Keith. Kinsey and Erin Stark appear to have arrived at the Side Bar from the same honky-tonk. Together they formed an unofficial country bloc that nobody planned for and nobody complained about.</div>
+        </div>
+
+        <div style="background:#1a1a1a; border-radius:10px; padding:18px; border-left:3px solid #3b82f6;">
+          <div style="font-weight:800; font-size:1em; margin-bottom:4px;">Christian Walzel</div>
+          <div style="font-size:0.78em; color:var(--muted); margin-bottom:8px;">31 songs · The Modern Outlier</div>
+          <div style="font-size:0.84em; color:#ccc;">Barns Courtney, Taylor Swift, Noah Kahan, Guns N' Roses, P!nk. Christian is the most "2020s" contributor on the list — he's the only one who came in with Noah Kahan on the tip. Someone's been paying attention to what's current.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- The Blink-and-You'll-Miss-It Section -->
+    <div style="background: var(--card2); border: 1px solid #333; border-radius:16px; padding: 30px;">
+      <div style="font-size:0.75em; text-transform:uppercase; letter-spacing:3px; color:var(--muted); margin-bottom:6px; font-weight:800;">The Blink-and-You'll-Miss-'Em</div>
+      <div style="font-size:0.85em; color:var(--muted); margin-bottom:22px;">These people were at the Side Bar. Briefly. They added songs. We don't know much more than that — and honestly, that mystery is part of their charm.</div>
+
+      <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start;">
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">ghb2</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">26 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">Identity: unknown.<br>Vibe: present.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">Anu</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">19 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">Came. Added music.<br>Left no forwarding address.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">Unknown</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">18 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">Literally anonymous.<br>18 songs, no name.<br>A ghost with good taste.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">Andrew</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">12 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">Just Andrew.<br>No last name needed.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">maripat_b</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">8 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">8 songs, strong username,<br>zero further information.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">suehoage</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">7 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">Was Sue a regular?<br>A neighbor? A legend?<br>History is silent.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">Music4you</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">7 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">The username says it all.<br>Here for one reason only.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">Jesswill12</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">5 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">Jess? Will? Both?<br>5 songs, infinite mystery.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">Aaron O.</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">4 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">The O. stands for<br>"Only here for one round."</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">Helen Zhang</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">3 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">Three songs. Perfect<br>attendance, minimal footprint.<br>The quiet achiever.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">Josh</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">3 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">Different Josh than<br>Josh Stark. The Side Bar<br>had multiple Joshes.</div>
+        </div>
+
+        <div style="background:#111; border:1px solid #333; border-radius:10px; padding:14px 18px; min-width:160px;">
+          <div style="font-weight:700; font-size:0.9em;">JZ</div>
+          <div style="font-size:0.75em; color:var(--green); margin:3px 0;">2 songs</div>
+          <div style="font-size:0.75em; color:#666; font-style:italic;">Two songs. Possibly<br>the most selective curator<br>on this entire list.</div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:22px; padding-top:18px; border-top:1px solid #2a2a2a; font-size:0.82em; color:#555; font-style:italic;">
+        In total, these 12 occasional visitors contributed <strong style="color:#777;">~185 songs</strong> to the Side Bar's history. Small individually, but together they represent the beautiful randomness of who ends up on your porch on a Friday night — friends of friends, plus-ones, neighbors of neighbors, and the occasional mystery guest who never came back but left three perfect songs behind.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PLAYLIST DIRECTORY ─── -->
+  <div class="section">
+    <h2>The Complete Playlist Directory</h2>
+    <p style="color:var(--muted); margin-bottom:18px; font-size:0.9em;">All 104 playlists, sorted chronologically by first track added.</p>
+    <table class="pl-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Playlist Name</th>
+          <th>First Active</th>
+          <th style="text-align:right">Tracks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="year-row"><td colspan="4">── 2016 ──</td></tr>
+        <tr><td>1</td><td class="pl-name">Meredith PJ Playlist</td><td><span class="pl-year">Mar 2016</span></td><td class="pl-count">19</td></tr>
+        <tr><td>2</td><td class="pl-name">Hey Ladies</td><td><span class="pl-year">Apr 2016</span></td><td class="pl-count">1</td></tr>
+        <tr><td>3</td><td class="pl-name">PJ Mellow</td><td><span class="pl-year">Jul 2016</span></td><td class="pl-count">2</td></tr>
+        <tr><td>4</td><td class="pl-name">Digital Trends' Best Drinking Songs</td><td><span class="pl-year">Jul 2016</span></td><td class="pl-count">25</td></tr>
+        <tr><td>5</td><td class="pl-name">Pearl Jam 2016 — Prep for Tour (PK list)</td><td><span class="pl-year">Jul 2016</span></td><td class="pl-count">123</td></tr>
+        <tr><td>6</td><td class="pl-name">Digital Trends' Party Playlist</td><td><span class="pl-year">Aug 2016</span></td><td class="pl-count">38</td></tr>
+        <tr><td>7</td><td class="pl-name">Deep Tracks</td><td><span class="pl-year">Aug 2016</span></td><td class="pl-count">31</td></tr>
+        <tr class="year-row"><td colspan="4">── 2017 ──</td></tr>
+        <tr><td>8</td><td class="pl-name">Crazy Bitch</td><td><span class="pl-year">Sep 2017</span></td><td class="pl-count">42</td></tr>
+        <tr class="year-row"><td colspan="4">── 2018 ──</td></tr>
+        <tr><td>9</td><td class="pl-name">pearljam</td><td><span class="pl-year">May 2018</span></td><td class="pl-count">51</td></tr>
+        <tr><td>10</td><td class="pl-name">Party 2018</td><td><span class="pl-year">Aug 2018</span></td><td class="pl-count">96</td></tr>
+        <tr><td>11</td><td class="pl-name">Leftovers from 2018 party list</td><td><span class="pl-year">Aug 2018</span></td><td class="pl-count">65</td></tr>
+        <tr><td>12</td><td class="pl-name">Late Night Party</td><td><span class="pl-year">Aug 2018</span></td><td class="pl-count">72</td></tr>
+        <tr><td>13</td><td class="pl-name">early 2018 party play list</td><td><span class="pl-year">Aug 2018</span></td><td class="pl-count">62</td></tr>
+        <tr class="year-row"><td colspan="4">── 2019 ──</td></tr>
+        <tr><td>14</td><td class="pl-name">pj all play</td><td><span class="pl-year">Mar 2019</span></td><td class="pl-count">204</td></tr>
+        <tr><td>15</td><td class="pl-name">Pearl Jam All Play</td><td><span class="pl-year">Jul 2019</span></td><td class="pl-count">3</td></tr>
+        <tr><td>16</td><td class="pl-name">jimmy70</td><td><span class="pl-year">Aug 2019</span></td><td class="pl-count">16</td></tr>
+        <tr><td>17</td><td class="pl-name">flatbread friends</td><td><span class="pl-year">Aug 2019</span></td><td class="pl-count">3</td></tr>
+        <tr><td>18</td><td class="pl-name">pam paul pizza</td><td><span class="pl-year">Aug 2019</span></td><td class="pl-count">44</td></tr>
+        <tr><td>19</td><td class="pl-name">Sunday Vibe otd</td><td><span class="pl-year">Oct 2019</span></td><td class="pl-count">16</td></tr>
+        <tr><td>20</td><td class="pl-name">ppmg</td><td><span class="pl-year">Oct 2019</span></td><td class="pl-count">3</td></tr>
+        <tr class="year-row"><td colspan="4">── 2020 ──</td></tr>
+        <tr><td>21</td><td class="pl-name">pam paul pizza part deux</td><td><span class="pl-year">Jan 2020</span></td><td class="pl-count">53</td></tr>
+        <tr><td>22</td><td class="pl-name">Phish</td><td><span class="pl-year">May 2020</span></td><td class="pl-count">42</td></tr>
+        <tr><td>23</td><td class="pl-name">Juneteenth P&amp;P</td><td><span class="pl-year">Jun 2020</span></td><td class="pl-count">34</td></tr>
+        <tr><td>24</td><td class="pl-name">Hbd with P&amp;A</td><td><span class="pl-year">Jul 2020</span></td><td class="pl-count">69</td></tr>
+        <tr><td>25</td><td class="pl-name">Pearl Jam I like it (tonight)</td><td><span class="pl-year">Jul 2020</span></td><td class="pl-count">34</td></tr>
+        <tr><td>26</td><td class="pl-name">Just stumbled</td><td><span class="pl-year">Jul 2020</span></td><td class="pl-count">25</td></tr>
+        <tr><td>27</td><td class="pl-name">Bad Sam Candy Fight</td><td><span class="pl-year">Jul 2020</span></td><td class="pl-count">98</td></tr>
+        <tr><td>28</td><td class="pl-name">French Toast</td><td><span class="pl-year">Jul 2020</span></td><td class="pl-count">63</td></tr>
+        <tr><td>29</td><td class="pl-name">I used to b a gdbg</td><td><span class="pl-year">Aug 2020</span></td><td class="pl-count">57</td></tr>
+        <tr><td>30</td><td class="pl-name">Dig it fool.</td><td><span class="pl-year">Sep 2020</span></td><td class="pl-count">56</td></tr>
+        <tr><td>31</td><td class="pl-name">80 pound ball</td><td><span class="pl-year">Sep 2020</span></td><td class="pl-count">61</td></tr>
+        <tr><td>32</td><td class="pl-name">Bend in Time</td><td><span class="pl-year">Oct 2020</span></td><td class="pl-count">97</td></tr>
+        <tr><td>33</td><td class="pl-name">Douche Cat</td><td><span class="pl-year">Oct 2020</span></td><td class="pl-count">26</td></tr>
+        <tr><td>34</td><td class="pl-name">Jimmy the Robot</td><td><span class="pl-year">Oct 2020</span></td><td class="pl-count">1</td></tr>
+        <tr><td>35</td><td class="pl-name">Dumpy But OKAY</td><td><span class="pl-year">Nov 2020</span></td><td class="pl-count">27</td></tr>
+        <tr><td>36</td><td class="pl-name">2020 Side Bar's Best</td><td><span class="pl-year">Dec 2020</span></td><td class="pl-count">732</td></tr>
+        <tr class="year-row"><td colspan="4">── 2021 ──</td></tr>
+        <tr><td>37</td><td class="pl-name">2021 Back to School</td><td><span class="pl-year">Jan 2021</span></td><td class="pl-count">23</td></tr>
+        <tr><td>38</td><td class="pl-name">Pam Paul pizza the remake</td><td><span class="pl-year">Jan 2021</span></td><td class="pl-count">58</td></tr>
+        <tr><td>39</td><td class="pl-name">Dose of the Fly</td><td><span class="pl-year">Apr 2021</span></td><td class="pl-count">220</td></tr>
+        <tr><td>40</td><td class="pl-name">Seasonal Soap Person (bottle of wine and a rosary)</td><td><span class="pl-year">May 2021</span></td><td class="pl-count">59</td></tr>
+        <tr><td>41</td><td class="pl-name">Freedom</td><td><span class="pl-year">Oct 2021</span></td><td class="pl-count">11</td></tr>
+        <tr><td>42</td><td class="pl-name">2021 olive face</td><td><span class="pl-year">Nov 2021</span></td><td class="pl-count">9</td></tr>
+        <tr><td>43</td><td class="pl-name">Get up and GO</td><td><span class="pl-year">Nov 2021</span></td><td class="pl-count">44</td></tr>
+        <tr><td>44</td><td class="pl-name">Good daily mix</td><td><span class="pl-year">Dec 2021</span></td><td class="pl-count">47</td></tr>
+        <tr class="year-row"><td colspan="4">── 2022 ──</td></tr>
+        <tr><td>45</td><td class="pl-name">All of 2021</td><td><span class="pl-year">Jan 2022</span></td><td class="pl-count">543</td></tr>
+        <tr><td>46</td><td class="pl-name">Off and Running 2000 twenty too</td><td><span class="pl-year">Jan 2022</span></td><td class="pl-count">85</td></tr>
+        <tr><td>47</td><td class="pl-name">PJ Covers</td><td><span class="pl-year">Jan 2022</span></td><td class="pl-count">33</td></tr>
+        <tr><td>48</td><td class="pl-name">pin curls and purple parkas</td><td><span class="pl-year">Feb 2022</span></td><td class="pl-count">29</td></tr>
+        <tr><td>49</td><td class="pl-name">Mental hole</td><td><span class="pl-year">Mar 2022</span></td><td class="pl-count">27</td></tr>
+        <tr><td>50</td><td class="pl-name">Rusty Trimmer</td><td><span class="pl-year">May 2022</span></td><td class="pl-count">3</td></tr>
+        <tr><td>51</td><td class="pl-name">Henry VIII</td><td><span class="pl-year">Jul 2022</span></td><td class="pl-count">44</td></tr>
+        <tr><td>52</td><td class="pl-name">Tradespeople</td><td><span class="pl-year">Aug 2022</span></td><td class="pl-count">59</td></tr>
+        <tr><td>53</td><td class="pl-name">Flutters &amp; Bobs</td><td><span class="pl-year">Aug 2022</span></td><td class="pl-count">46</td></tr>
+        <tr><td>54</td><td class="pl-name">Rhcp psat</td><td><span class="pl-year">Sep 2022</span></td><td class="pl-count">31</td></tr>
+        <tr><td>55</td><td class="pl-name">(big buddy bonanza)</td><td><span class="pl-year">Oct 2022</span></td><td class="pl-count">30</td></tr>
+        <tr><td>56</td><td class="pl-name">Skippy ball all-stars</td><td><span class="pl-year">Oct 2022</span></td><td class="pl-count">115</td></tr>
+        <tr><td>57</td><td class="pl-name">Homecoming (shots of platinum)</td><td><span class="pl-year">Oct 2022</span></td><td class="pl-count">32</td></tr>
+        <tr><td>58</td><td class="pl-name">Water of Love</td><td><span class="pl-year">Nov 2022</span></td><td class="pl-count">15</td></tr>
+        <tr><td>59</td><td class="pl-name">Black Friday</td><td><span class="pl-year">Nov 2022</span></td><td class="pl-count">61</td></tr>
+        <tr><td>60</td><td class="pl-name">All For You</td><td><span class="pl-year">Dec 2022</span></td><td class="pl-count">202</td></tr>
+        <tr><td>61</td><td class="pl-name">Bogle familia</td><td><span class="pl-year">Dec 2022</span></td><td class="pl-count">20</td></tr>
+        <tr class="year-row"><td colspan="4">── 2023 ──</td></tr>
+        <tr><td>62</td><td class="pl-name">There's not enough road</td><td><span class="pl-year">Jan 2023</span></td><td class="pl-count">1</td></tr>
+        <tr><td>63</td><td class="pl-name">Dog Days of winter</td><td><span class="pl-year">Jan 2023</span></td><td class="pl-count">37</td></tr>
+        <tr><td>64</td><td class="pl-name">Chat-got</td><td><span class="pl-year">Feb 2023</span></td><td class="pl-count">59</td></tr>
+        <tr><td>65</td><td class="pl-name">BAss</td><td><span class="pl-year">Mar 2023</span></td><td class="pl-count">35</td></tr>
+        <tr><td>66</td><td class="pl-name">Mixed</td><td><span class="pl-year">Mar 2023</span></td><td class="pl-count">23</td></tr>
+        <tr><td>67</td><td class="pl-name">Best of 2022 &amp; Beyond</td><td><span class="pl-year">May 2023</span></td><td class="pl-count">1,169</td></tr>
+        <tr><td>68</td><td class="pl-name">ThurstQuencher</td><td><span class="pl-year">Jun 2023</span></td><td class="pl-count">74</td></tr>
+        <tr><td>69</td><td class="pl-name">Meatloaf Incident</td><td><span class="pl-year">Jun 2023</span></td><td class="pl-count">55</td></tr>
+        <tr><td>70</td><td class="pl-name">Pickle</td><td><span class="pl-year">Jul 2023</span></td><td class="pl-count">44</td></tr>
+        <tr><td>71</td><td class="pl-name">Tesla Slap</td><td><span class="pl-year">Sep 2023</span></td><td class="pl-count">52</td></tr>
+        <tr><td>72</td><td class="pl-name">Starkinson</td><td><span class="pl-year">Nov 2023</span></td><td class="pl-count">40</td></tr>
+        <tr class="year-row"><td colspan="4">── 2024 ──</td></tr>
+        <tr><td>73</td><td class="pl-name">Best of 2023</td><td><span class="pl-year">Feb 2024</span></td><td class="pl-count">659</td></tr>
+        <tr><td>74</td><td class="pl-name">Best of the Best</td><td><span class="pl-year">Feb 2024</span></td><td class="pl-count">2,198</td></tr>
+        <tr><td>75</td><td class="pl-name">Crab Shack</td><td><span class="pl-year">Feb 2024</span></td><td class="pl-count">58</td></tr>
+        <tr><td>76</td><td class="pl-name">Tremors</td><td><span class="pl-year">Apr 2024</span></td><td class="pl-count">63</td></tr>
+        <tr><td>77</td><td class="pl-name">Misunderstood</td><td><span class="pl-year">May 2024</span></td><td class="pl-count">44</td></tr>
+        <tr><td>78</td><td class="pl-name">Bout that time</td><td><span class="pl-year">Jul 2024</span></td><td class="pl-count">15</td></tr>
+        <tr><td>79</td><td class="pl-name">Dream Team vs Avengers</td><td><span class="pl-year">Aug 2024</span></td><td class="pl-count">29</td></tr>
+        <tr><td>80</td><td class="pl-name">Swervin' Mervin</td><td><span class="pl-year">Aug 2024</span></td><td class="pl-count">120</td></tr>
+        <tr><td>81</td><td class="pl-name">PJ Concert Requests</td><td><span class="pl-year">Sep 2024</span></td><td class="pl-count">28</td></tr>
+        <tr><td>82</td><td class="pl-name">MG 20</td><td><span class="pl-year">Oct 2024</span></td><td class="pl-count">55</td></tr>
+        <tr><td>83</td><td class="pl-name">Neanderthal zipper</td><td><span class="pl-year">Nov 2024</span></td><td class="pl-count">2</td></tr>
+        <tr><td>84</td><td class="pl-name">SendingItNow</td><td><span class="pl-year">Dec 2024</span></td><td class="pl-count">45</td></tr>
+        <tr class="year-row"><td colspan="4">── 2025 ──</td></tr>
+        <tr><td>85</td><td class="pl-name">Old man</td><td><span class="pl-year">Feb 2025</span></td><td class="pl-count">30</td></tr>
+        <tr><td>86</td><td class="pl-name">Skippy ball all-stars 2 (man hands)</td><td><span class="pl-year">May 2025</span></td><td class="pl-count">35</td></tr>
+        <tr><td>87</td><td class="pl-name">Happy</td><td><span class="pl-year">Jun 2025</span></td><td class="pl-count">8</td></tr>
+        <tr><td>88</td><td class="pl-name">4th and 25</td><td><span class="pl-year">Jul 2025</span></td><td class="pl-count">85</td></tr>
+        <tr><td>89</td><td class="pl-name">Rude to the cow (barefoot dancer)</td><td><span class="pl-year">Recent</span></td><td class="pl-count">82</td></tr>
+        <tr><td>90</td><td class="pl-name">Smooth jams</td><td><span class="pl-year">Recent</span></td><td class="pl-count">50</td></tr>
+        <tr><td>91</td><td class="pl-name">Tell me</td><td><span class="pl-year">Recent</span></td><td class="pl-count">9</td></tr>
+        <tr><td>92</td><td class="pl-name">January Twenty Thirst (Best of)</td><td><span class="pl-year">Recent</span></td><td class="pl-count">492</td></tr>
+        <tr><td>93</td><td class="pl-name">Fish Man Black Stack</td><td><span class="pl-year">Recent</span></td><td class="pl-count">32</td></tr>
+        <tr><td>94</td><td class="pl-name">Cage</td><td><span class="pl-year">Recent</span></td><td class="pl-count">20</td></tr>
+        <tr><td>95</td><td class="pl-name">Love Lore</td><td><span class="pl-year">Recent</span></td><td class="pl-count">29</td></tr>
+        <tr><td>96</td><td class="pl-name">Covered in daisys</td><td><span class="pl-year">Recent</span></td><td class="pl-count">68</td></tr>
+        <tr><td>97</td><td class="pl-name">Eclectic Mix Vibes</td><td><span class="pl-year">Recent</span></td><td class="pl-count">30</td></tr>
+        <tr><td>98</td><td class="pl-name">Happy Hour Vibes</td><td><span class="pl-year">Recent</span></td><td class="pl-count">30</td></tr>
+        <tr><td>99</td><td class="pl-name">Bouncy Beats</td><td><span class="pl-year">Recent</span></td><td class="pl-count">30</td></tr>
+        <tr><td>100</td><td class="pl-name">Paul n party</td><td><span class="pl-year">Recent</span></td><td class="pl-count">37</td></tr>
+        <tr><td>101</td><td class="pl-name">Swervin' Mervin</td><td><span class="pl-year">Recent</span></td><td class="pl-count">120</td></tr>
+        <tr><td>102</td><td class="pl-name">Hbd with P&amp;A</td><td><span class="pl-year">Recent</span></td><td class="pl-count">69</td></tr>
+        <tr><td>103</td><td class="pl-name">Pam Paul pizza the remake</td><td><span class="pl-year">Recent</span></td><td class="pl-count">58</td></tr>
+        <tr><td>104</td><td class="pl-name">January Twenty Thirst (Best of)</td><td><span class="pl-year">Recent</span></td><td class="pl-count">492</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  The Side Bar · Generated from Gareth Ouellette's Spotify account (gco13-us) · 104 playlists · 10,259 track adds · data via Spotify API · June 2026
+</footer>
+
+</body>
+</html>
