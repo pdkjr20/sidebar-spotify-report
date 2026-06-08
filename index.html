@@ -646,6 +646,638 @@
     </div>
   </div>
 
+  <!-- ─── NEWS FLASHBACK ─── -->
+  <div class="section" id="news-flashback-section">
+    <h2>📰 News Flashback</h2>
+    <p style="color:var(--muted); margin-bottom:24px; font-size:0.9em;">Pick any playlist and see what was making headlines that month — the world your music was playing through.</p>
+
+    <select id="playlist-picker" style="background:#1E1E1E; color:#fff; border:1px solid #555; border-radius:8px; padding:12px 16px; font-size:0.92em; width:100%; max-width:560px; cursor:pointer; outline:none; appearance:none; -webkit-appearance:none;">
+      <option value="">— Select a playlist —</option>
+      <optgroup label="── 2016 ──">
+        <option value="2016-03">Meredith PJ Playlist (Mar 2016)</option>
+        <option value="2016-04">Hey Ladies (Apr 2016)</option>
+        <option value="2016-07">PJ Mellow (Jul 2016)</option>
+        <option value="2016-07">Digital Trends Best Drinking Songs (Jul 2016)</option>
+        <option value="2016-07">Pearl Jam 2016 — Prep for Tour (Jul 2016)</option>
+        <option value="2016-08">Digital Trends Party Playlist (Aug 2016)</option>
+        <option value="2016-08">Deep Tracks (Aug 2016)</option>
+      </optgroup>
+      <optgroup label="── 2017 ──">
+        <option value="2017-09">Crazy Bitch (Sep 2017)</option>
+      </optgroup>
+      <optgroup label="── 2018 ──">
+        <option value="2018-05">pearljam (May 2018)</option>
+        <option value="2018-08">Party 2018 (Aug 2018)</option>
+        <option value="2018-08">Leftovers from 2018 party list (Aug 2018)</option>
+        <option value="2018-08">Late Night Party (Aug 2018)</option>
+        <option value="2018-08">early 2018 party play list (Aug 2018)</option>
+      </optgroup>
+      <optgroup label="── 2019 ──">
+        <option value="2019-03">pj all play (Mar 2019)</option>
+        <option value="2019-07">Pearl Jam All Play (Jul 2019)</option>
+        <option value="2019-08">jimmy70 (Aug 2019)</option>
+        <option value="2019-08">flatbread friends (Aug 2019)</option>
+        <option value="2019-08">pam paul pizza (Aug 2019)</option>
+        <option value="2019-10">Sunday Vibe otd (Oct 2019)</option>
+        <option value="2019-10">ppmg (Oct 2019)</option>
+      </optgroup>
+      <optgroup label="── 2020 ──">
+        <option value="2020-01">pam paul pizza part deux (Jan 2020)</option>
+        <option value="2020-05">Phish (May 2020)</option>
+        <option value="2020-06">Juneteenth P&amp;P (Jun 2020)</option>
+        <option value="2020-07">Hbd with P&amp;A (Jul 2020)</option>
+        <option value="2020-07">Pearl Jam I like it (tonight) (Jul 2020)</option>
+        <option value="2020-07">Just stumbled (Jul 2020)</option>
+        <option value="2020-07">Bad Sam Candy Fight (Jul 2020)</option>
+        <option value="2020-07">French Toast (Jul 2020)</option>
+        <option value="2020-08">I used to b a gdbg (Aug 2020)</option>
+        <option value="2020-09">Dig it fool. (Sep 2020)</option>
+        <option value="2020-09">80 pound ball (Sep 2020)</option>
+        <option value="2020-10">Bend in Time (Oct 2020)</option>
+        <option value="2020-10">Douche Cat (Oct 2020)</option>
+        <option value="2020-10">Jimmy the Robot (Oct 2020)</option>
+        <option value="2020-11">Dumpy But OKAY (Nov 2020)</option>
+        <option value="2020-12">2020 Side Bar's Best (Dec 2020)</option>
+      </optgroup>
+      <optgroup label="── 2021 ──">
+        <option value="2021-01">2021 Back to School (Jan 2021)</option>
+        <option value="2021-01">Pam Paul pizza the remake (Jan 2021)</option>
+        <option value="2021-04">Dose of the Fly (Apr 2021)</option>
+        <option value="2021-05">Seasonal Soap Person (May 2021)</option>
+        <option value="2021-10">Freedom (Oct 2021)</option>
+        <option value="2021-11">2021 olive face (Nov 2021)</option>
+        <option value="2021-11">Get up and GO (Nov 2021)</option>
+        <option value="2021-12">Good daily mix (Dec 2021)</option>
+      </optgroup>
+      <optgroup label="── 2022 ──">
+        <option value="2022-01">All of 2021 (Jan 2022)</option>
+        <option value="2022-01">Off and Running 2000 twenty too (Jan 2022)</option>
+        <option value="2022-01">PJ Covers (Jan 2022)</option>
+        <option value="2022-02">pin curls and purple parkas (Feb 2022)</option>
+        <option value="2022-03">Mental hole (Mar 2022)</option>
+        <option value="2022-05">Rusty Trimmer (May 2022)</option>
+        <option value="2022-07">Henry VIII (Jul 2022)</option>
+        <option value="2022-08">Tradespeople (Aug 2022)</option>
+        <option value="2022-08">Flutters &amp; Bobs (Aug 2022)</option>
+        <option value="2022-09">Rhcp psat (Sep 2022)</option>
+        <option value="2022-10">(big buddy bonanza) (Oct 2022)</option>
+        <option value="2022-10">Skippy ball all-stars (Oct 2022)</option>
+        <option value="2022-10">Homecoming (shots of platinum) (Oct 2022)</option>
+        <option value="2022-11">Water of Love (Nov 2022)</option>
+        <option value="2022-11">Black Friday (Nov 2022)</option>
+        <option value="2022-12">All For You (Dec 2022)</option>
+        <option value="2022-12">Bogle familia (Dec 2022)</option>
+      </optgroup>
+      <optgroup label="── 2023 ──">
+        <option value="2023-01">There's not enough road (Jan 2023)</option>
+        <option value="2023-01">Dog Days of winter (Jan 2023)</option>
+        <option value="2023-02">Chat-got (Feb 2023)</option>
+        <option value="2023-03">BAss (Mar 2023)</option>
+        <option value="2023-03">Mixed (Mar 2023)</option>
+        <option value="2023-05">Best of 2022 &amp; Beyond (May 2023)</option>
+        <option value="2023-06">ThurstQuencher (Jun 2023)</option>
+        <option value="2023-06">Meatloaf Incident (Jun 2023)</option>
+        <option value="2023-07">Pickle (Jul 2023)</option>
+        <option value="2023-09">Tesla Slap (Sep 2023)</option>
+        <option value="2023-11">Starkinson (Nov 2023)</option>
+      </optgroup>
+      <optgroup label="── 2024 ──">
+        <option value="2024-02">Best of 2023 (Feb 2024)</option>
+        <option value="2024-02">Best of the Best (Feb 2024)</option>
+        <option value="2024-02">Crab Shack (Feb 2024)</option>
+        <option value="2024-04">Tremors (Apr 2024)</option>
+        <option value="2024-05">Misunderstood (May 2024)</option>
+        <option value="2024-07">Bout that time (Jul 2024)</option>
+        <option value="2024-08">Dream Team vs Avengers (Aug 2024)</option>
+        <option value="2024-08">Swervin' Mervin (Aug 2024)</option>
+        <option value="2024-09">PJ Concert Requests (Sep 2024)</option>
+        <option value="2024-10">MG 20 (Oct 2024)</option>
+        <option value="2024-11">Neanderthal zipper (Nov 2024)</option>
+        <option value="2024-12">SendingItNow (Dec 2024)</option>
+      </optgroup>
+      <optgroup label="── 2025 ──">
+        <option value="2025-02">Old man (Feb 2025)</option>
+        <option value="2025-05">Skippy ball all-stars 2 (man hands) (May 2025)</option>
+        <option value="2025-06">Happy (Jun 2025)</option>
+        <option value="2025-07">4th and 25 (Jul 2025)</option>
+      </optgroup>
+    </select>
+
+    <div id="flashback-panel" style="display:none; margin-top:28px;">
+      <div id="flashback-month-label" style="font-size:0.75em; text-transform:uppercase; letter-spacing:3px; color:var(--green); font-weight:800; margin-bottom:14px;"></div>
+      <div id="flashback-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;"></div>
+    </div>
+  </div>
+
+  <style>
+    @media(max-width:700px){ #flashback-grid{ grid-template-columns:1fr!important; } }
+    @media(max-width:1000px) and (min-width:701px){ #flashback-grid{ grid-template-columns:repeat(2,1fr)!important; } }
+    .fb-card{ background:var(--card2); border-radius:10px; padding:16px 18px; border-left:3px solid #555; }
+    .fb-cat{ font-size:0.7em; text-transform:uppercase; letter-spacing:1.5px; font-weight:800; margin-bottom:6px; }
+    .fb-text{ font-size:0.85em; color:var(--muted); line-height:1.5; }
+  </style>
+
+  <script>
+  (function(){
+    const MONTHS = {
+      '01':'January','02':'February','03':'March','04':'April','05':'May','06':'June',
+      '07':'July','08':'August','09':'September','10':'October','11':'November','12':'December'
+    };
+
+    const CATS = [
+      { key:'politics', icon:'🏛️', label:'Politics', color:'#e74c3c' },
+      { key:'world',    icon:'🌍', label:'World',    color:'#3498db' },
+      { key:'culture',  icon:'🎬', label:'Culture',  color:'#9b59b6' },
+      { key:'sports',   icon:'🏆', label:'Sports',   color:'#f39c12' },
+      { key:'tech',     icon:'💻', label:'Tech',     color:'#1DB954' },
+      { key:'science',  icon:'🔬', label:'Science',  color:'#1abc9c' }
+    ];
+
+    const D = {
+      '2016-03':{
+        politics:"Trump dominates Super Tuesday; Clinton sweeps Southern primaries to build a near-insurmountable delegate lead.",
+        world:"Brussels airport and metro bombings kill 32; ISIS claims the deadliest terror attack in Belgian history.",
+        culture:"Batman v Superman opens worldwide; Kendrick Lamar wins five Grammys and steals the night.",
+        sports:"March Madness brackets shredded in the first weekend; Kobe Bryant's farewell tour reaches the final months.",
+        tech:"Apple vs. FBI showdown over a dead terrorist's iPhone ignites a national encryption debate in federal court.",
+        science:"WHO declares Zika a global public health emergency; mosquito-linked microcephaly confirmed in Brazil."
+      },
+      '2016-04':{
+        politics:"Panama Papers expose the offshore tax secrets of world leaders, oligarchs, and celebrities.",
+        world:"Ecuador struck by a 7.8-magnitude earthquake; hundreds killed and thousands displaced.",
+        culture:"Prince dies suddenly at 57; Beyoncé drops Lemonade as a surprise visual album and cultural earthquake.",
+        sports:"Kobe Bryant exits with a 60-point finale in his last NBA game; Warriors win their 73rd game — a record.",
+        tech:"SpaceX lands its Falcon 9 rocket on a drone ship at sea — a milestone toward reusable spaceflight.",
+        science:"LIGO confirms gravitational waves from two colliding black holes — Einstein's century-old prediction verified."
+      },
+      '2016-07':{
+        politics:"Brexit fallout reshapes Britain; PM David Cameron resigns; Turkey's military stages a failed coup.",
+        world:"A truck attack on Bastille Day in Nice, France, kills 86; ISIS claims responsibility.",
+        culture:"Pokémon Go launches and instantly becomes a global obsession; millions wander streets eyes-down.",
+        sports:"LeBron delivers Cleveland its first championship in 52 years; Simone Biles prepares to dazzle Rio.",
+        tech:"Twitter announces major layoffs; Facebook Live and Instagram Stories ignite the live-video era.",
+        science:"NASA's Juno spacecraft enters Jupiter's orbit after a 5-year, 1.8-billion-mile journey."
+      },
+      '2016-08':{
+        politics:"Trump replaces his campaign chief; Clinton opens a double-digit lead; FBI releases Clinton email interview notes.",
+        world:"Rio Olympics opens despite Zika fears and economic chaos; 11,000 athletes compete.",
+        culture:"Ryan Lochte fabricates a robbery story at the Olympics; the lie unravels on live TV worldwide.",
+        sports:"Usain Bolt wins his third consecutive 100m gold; Michael Phelps retires with 23 Olympic gold medals.",
+        tech:"Samsung Galaxy Note 7 ships to rave reviews — recalls and fires come soon; Apple teases iPhone 7.",
+        science:"Astronomers discover Proxima b, a potentially habitable planet orbiting the star nearest to our Sun."
+      },
+      '2017-09':{
+        politics:"Trump ends DACA, stripping deportation protections from 800,000 young immigrants; Congress scrambles.",
+        world:"Hurricane Maria devastates Puerto Rico with Category 4 force; the island loses power for months.",
+        culture:"Stephen King's It shatters September box office records; Emmy voters celebrate Big Little Lies.",
+        sports:"Roger Federer and Rafael Nadal dominate tennis; US Open wraps in New York.",
+        tech:"Apple unveils the iPhone X with Face ID on its 10th anniversary; Equifax breach exposes 147 million Americans.",
+        science:"NASA's Cassini spacecraft ends its 13-year Saturn mission by plunging into the planet's atmosphere."
+      },
+      '2018-05':{
+        politics:"Trump withdraws the US from the Iran nuclear deal; the US embassy moves from Tel Aviv to Jerusalem.",
+        world:"Hawaii's Kilauea volcano erupts continuously, destroying neighborhoods on the Big Island for weeks.",
+        culture:"Prince Harry and Meghan Markle wed at Windsor Castle in a ceremony watched by two billion people.",
+        sports:"LeBron James single-handedly carries the Cavaliers to the NBA Finals; Kentucky Derby season peaks.",
+        tech:"Mark Zuckerberg testifies before Congress for two days over the Cambridge Analytica privacy scandal.",
+        science:"NASA's InSight Mars lander launches to study the Red Planet's interior from the inside out."
+      },
+      '2018-08':{
+        politics:"Paul Manafort is convicted; Michael Cohen pleads guilty and implicates Trump; legal walls close in.",
+        world:"Wildfires torch millions of California acres; Europe endures its worst drought in living memory.",
+        culture:"Aretha Franklin, the Queen of Soul, dies at 76; the world mourns and sings.",
+        sports:"LeBron signs with the Lakers; Serena Williams reaches the US Open final in her comeback after childbirth.",
+        tech:"Apple becomes the first company in history to reach a $1 trillion market cap.",
+        science:"NASA's Parker Solar Probe launches on a mission to fly through the Sun's corona — closer than ever before."
+      },
+      '2019-03':{
+        politics:"Robert Mueller submits his report to Attorney General Barr; its contents become a national obsession.",
+        world:"A gunman livestreams his attack on two New Zealand mosques, killing 51; the world is shaken.",
+        culture:"Captain Marvel crosses $1 billion; Jordan Peele's Us opens to terrified audiences and glowing reviews.",
+        sports:"All Boeing 737 Max jets are grounded worldwide after a second fatal crash in five months kills 157.",
+        tech:"The Boeing 737 Max software failure becomes a master class in how design shortcuts kill people.",
+        science:"The Event Horizon Telescope releases the first-ever direct image of a black hole — 6.5 billion solar masses."
+      },
+      '2019-07':{
+        politics:"Jeffrey Epstein is arrested on federal sex trafficking charges; the powerful figures in his orbit panic.",
+        world:"Puerto Rico's governor resigns after 900 pages of offensive group chats leak; massive protests force him out.",
+        culture:"The Moon landing turns 50; Apollo 11 nostalgia washes over the world as a new space race heats up.",
+        sports:"The US Women's Soccer team wins the World Cup; Megan Rapinoe claims the Golden Boot and the spotlight.",
+        tech:"Facebook is fined $5 billion by the FTC for privacy violations — the largest tech fine in US history.",
+        science:"NASA announces the Artemis program to return Americans to the Moon by the mid-2020s."
+      },
+      '2019-08':{
+        politics:"Trump casually floats buying Greenland from Denmark; Denmark calls the idea absurd and cancels a summit.",
+        world:"Mass shootings in El Paso (23 killed) and Dayton (9 killed) reignite the gun control standoff.",
+        culture:"The Amazon rainforest burns at a record rate; deforestation images go viral and spark international outrage.",
+        sports:"Daniil Medvedev goes on a remarkable run at the US Open; Rafael Nadal wins the men's final in five sets.",
+        tech:"Trump escalates the China trade war with new tariff threats; the Dow drops 800 points in a single day.",
+        science:"Climate scientists warn the Amazon fires are pushing a critical carbon sink toward a tipping point."
+      },
+      '2019-10':{
+        politics:"House formally authorizes a Trump impeachment inquiry over his Ukraine phone call with President Zelensky.",
+        world:"US Special Forces kill ISIS leader Abu Bakr al-Baghdadi in a raid in northwest Syria.",
+        culture:"Joaquin Phoenix's Joker breaks October box office records and ignites fierce debate about violence in film.",
+        sports:"The Washington Nationals win the World Series in seven games, beating the heavily favored Astros.",
+        tech:"Google claims quantum supremacy — its processor solves in 200 seconds what a classical computer needs 10,000 years to crack.",
+        science:"Google's quantum supremacy claim divides physicists; IBM immediately challenges the comparison."
+      },
+      '2020-01':{
+        politics:"The US kills Iranian General Qasem Soleimani in a Baghdad drone strike; Iran retaliates on US bases in Iraq.",
+        world:"A novel coronavirus emerges in Wuhan, China; the WHO declares a public health emergency on January 30.",
+        culture:"Kobe Bryant and daughter Gianna die in a Calabasas helicopter crash; the sports world goes silent.",
+        sports:"Super Bowl LIV looms as the 49ers and Chiefs prepare; Kobe's death reframes what the game means.",
+        tech:"CES 2020 showcases foldable phones, 8K displays, and self-driving cars; Ring doorbell privacy draws fire.",
+        science:"Australian wildfires kill an estimated 3 billion animals in the worst bushfire season on record."
+      },
+      '2020-05':{
+        politics:"George Floyd is murdered by a Minneapolis police officer; protests erupt in all 50 states within days.",
+        world:"The US COVID-19 death toll surpasses 100,000; global cases top 5 million.",
+        culture:"Amy Cooper's Central Park 911 call goes viral; Broadway remains dark with no reopening date.",
+        sports:"Michael Jordan's The Last Dance captivates a sports-starved nation on ESPN.",
+        tech:"SpaceX Crew Dragon launches NASA astronauts to the ISS — the first crewed US launch from American soil since 2011.",
+        science:"The FDA grants emergency authorization to remdesivir, the first approved COVID-19 treatment."
+      },
+      '2020-06':{
+        politics:"Black Lives Matter protests sweep all 50 states and 60+ countries; the Defund the Police debate divides the left.",
+        world:"Confederate monuments topple across the American South; statues fall in the UK and Belgium too.",
+        culture:"HBO temporarily pulls Gone with the Wind; Juneteenth gains mainstream recognition for the first time.",
+        sports:"NASCAR bans Confederate flags at all events; the NBA and MLB finalize plans to restart in quarantine bubbles.",
+        tech:"Zoom reaches 300 million daily meeting participants; it has become a verb and a way of life.",
+        science:"The Supreme Court rules 6-3 that LGBTQ workers are protected under the Civil Rights Act of 1964."
+      },
+      '2020-07':{
+        politics:"John Lewis dies at 80; Trump commutes Roger Stone's sentence hours before he is to report to prison.",
+        world:"COVID-19 surges through Florida, Texas, and Arizona; Southern states break infection records daily.",
+        culture:"Hamilton premieres on Disney+ to massive viewership; Kanye West announces a presidential run.",
+        sports:"The NBA returns to play inside Disney's Florida bubble; the NFL announces a modified fall season plan.",
+        tech:"Trump threatens to ban TikTok; Microsoft enters talks to buy the app from ByteDance.",
+        science:"China, the UAE, and the US all launch Mars missions in the same narrow July window — a once-in-26-months opportunity."
+      },
+      '2020-08':{
+        politics:"Kamala Harris becomes the first Black and South Asian woman nominated for Vice President on a major ticket.",
+        world:"A massive Beirut port explosion kills 218 and wounds 6,000; Lebanon's government collapses.",
+        culture:"Chadwick Boseman dies of colon cancer at 43; the Black Panther star had hidden his illness from the public.",
+        sports:"Jacob Blake is shot seven times by Kenosha police; the NBA and other leagues pause their seasons in protest.",
+        tech:"Apple surpasses $2 trillion in market value; TikTok faces an August deadline to sell its US operations.",
+        science:"Russia announces the Sputnik V COVID vaccine — the world's first — amid widespread safety skepticism."
+      },
+      '2020-09':{
+        politics:"Ruth Bader Ginsburg dies at 87; Trump immediately moves to fill her Supreme Court seat before the election.",
+        world:"California skies turn apocalyptic orange as wildfires consume millions of acres in a historic fire season.",
+        culture:"Christopher Nolan releases Tenet in theaters to resuscitate the movie business; it is a noble gamble.",
+        sports:"The NBA Bubble delivers; Naomi Osaka wins the US Open wearing a mask bearing a different victim's name each match.",
+        tech:"The TikTok-Oracle-Walmart deal is proposed as a face-saving alternative to an outright ban.",
+        science:"Scientists announce discovery of phosphine in Venus's atmosphere — a potential biosignature that sparks debate."
+      },
+      '2020-10':{
+        politics:"Trump tests positive for COVID-19, is hospitalized at Walter Reed, and leaves four days later claiming to feel great.",
+        world:"Europe's second COVID wave triggers lockdowns in France, Germany, and the UK; cases shatter spring records.",
+        culture:"Sacha Baron Cohen's Borat Subsequent Moviefilm drops on Prime Video; its Giuliani scene goes instantly viral.",
+        sports:"The Lakers defeat the Heat 4-2 in the NBA Bubble Finals; LeBron James wins his fourth championship.",
+        tech:"Congress grills the CEOs of Apple, Amazon, Google, and Facebook in a landmark antitrust hearing.",
+        science:"NASA confirms the discovery of water on the sunlit surface of the Moon — more water than previously thought."
+      },
+      '2020-11':{
+        politics:"Biden wins the presidency; Trump refuses to concede; the GSA delays certifying the transition for weeks.",
+        world:"A third COVID wave breaks global records; Europe locks down again as winter approaches.",
+        culture:"The Crown Season 4 lands on Netflix; The Mandalorian Season 2 delivers the internet's new favorite character.",
+        sports:"Los Angeles Dodgers win the World Series; an NBA season that seemed impossible is somehow complete.",
+        tech:"Pfizer announces its COVID vaccine is more than 90% effective; stock markets soar on the news.",
+        science:"Pfizer-BioNTech publish full trial results showing 95% efficacy; Moderna reports 94.5% — a historic double."
+      },
+      '2020-12':{
+        politics:"The Electoral College certifies Biden; the Supreme Court dismisses Texas's last-ditch election lawsuit.",
+        world:"The UK becomes the first country to approve the Pfizer vaccine for emergency use on December 2.",
+        culture:"Soul premieres on Disney+; WandaVision trailers set Marvel fans into a frenzy for January.",
+        sports:"The NFL plays a full season through the pandemic with no bubble; the Super Bowl is set for Tampa.",
+        tech:"The SolarWinds hack is revealed — a massive Russian cyberespionage campaign inside US government networks.",
+        science:"US healthcare workers receive the first COVID-19 vaccines on December 14; the beginning of the end begins."
+      },
+      '2021-01':{
+        politics:"A Trump-incited mob storms the US Capitol on January 6; Trump is impeached for a historic second time.",
+        world:"Myanmar's military stages a coup, detaining Aung San Suu Kyi; massive civil disobedience protests follow.",
+        culture:"Reddit's WallStreetBets forum ignites a GameStop short squeeze that costs hedge funds billions.",
+        sports:"Tom Brady wins Super Bowl LV with the Buccaneers — his seventh ring, his first without Bill Belichick.",
+        tech:"Twitter permanently bans Trump; Apple, Google, and Amazon deplatform Parler within 24 hours.",
+        science:"The COVID vaccine rollout accelerates as the US aims for 1 million shots per day; J&J enters trials."
+      },
+      '2021-04':{
+        politics:"Derek Chauvin is convicted of murder in George Floyd's death; a jury takes less than 24 hours to decide.",
+        world:"India is overwhelmed by a catastrophic COVID second wave; hospitals run out of oxygen and beds.",
+        culture:"The Oscars go to Union Station; Frances McDormand wins Best Actress; Nomadland takes Best Picture.",
+        sports:"Hideki Matsuyama wins the Masters, becoming the first Japanese man to win a golf major.",
+        tech:"Apple AirTag launches; within weeks security researchers demonstrate how easily it enables stalking.",
+        science:"NASA's Ingenuity helicopter makes its first powered flight on Mars — the Wright Brothers moment in space."
+      },
+      '2021-05':{
+        politics:"Senate Republicans block the January 6 commission; the Capitol riot investigation heads to a House select committee.",
+        world:"An 11-day Israel-Gaza conflict kills 250+ Palestinians and 13 Israelis; a ceasefire is reached on May 21.",
+        culture:"The Friends Reunion special arrives on HBO Max; Naomi Osaka withdraws from the French Open citing mental health.",
+        sports:"The Kentucky Derby returns with fans; Medina Spirit wins — and later tests positive for a banned substance.",
+        tech:"The Colonial Pipeline ransomware attack shuts down fuel supplies across the US East Coast for six days.",
+        science:"SpaceX Starship SN15 completes the first successful high-altitude test flight and landing — no explosion."
+      },
+      '2021-10':{
+        politics:"The Pandora Papers expose the offshore financial secrets of 35 world leaders and 330 politicians.",
+        world:"Facebook whistleblower Frances Haugen testifies before Congress, armed with internal research on harm.",
+        culture:"Squid Game becomes Netflix's biggest series launch ever; South Korean storytelling takes over global culture.",
+        sports:"William Shatner, at 90, becomes the oldest person in space on a Blue Origin flight; he is visibly moved.",
+        tech:"Mark Zuckerberg rebrands Facebook as Meta and announces a massive pivot to building the metaverse.",
+        science:"The Nobel Prize in Physics is awarded to climate scientists for the first time — a clear message from Stockholm."
+      },
+      '2021-11':{
+        politics:"Biden signs the $1.2 trillion bipartisan infrastructure bill into law — the largest public investment in decades.",
+        world:"The Omicron variant is first detected in South Africa; the world braces and begins imposing travel bans.",
+        culture:"Travis Scott's Astroworld Festival crowd crush kills 10 and injures hundreds; the music industry soul-searches.",
+        sports:"Kyle Rittenhouse is acquitted; the Ahmaud Arbery killers are convicted; the Braves win the World Series.",
+        tech:"Elon Musk polls Twitter on whether he should sell 10% of his Tesla stake — then sells $11 billion worth.",
+        science:"NASA's DART spacecraft launches on its mission to crash into an asteroid and test planetary defense."
+      },
+      '2021-12':{
+        politics:"Ghislaine Maxwell is convicted on sex trafficking charges; the full scope of the Epstein network comes into focus.",
+        world:"Omicron spreads at unprecedented speed; holiday travel plans and events are canceled worldwide.",
+        culture:"Spider-Man: No Way Home shatters pandemic-era box office records; Don't Look Up arrives on Netflix.",
+        sports:"The NFL season is disrupted by COVID outbreaks; Antonio Brown dramatically walks off the field mid-game.",
+        tech:"Log4Shell is discovered — security experts call it the worst software vulnerability in a decade.",
+        science:"The James Webb Space Telescope launches on Christmas Day; a new era of astronomy begins its journey to L2."
+      },
+      '2022-01':{
+        politics:"Senate Democrats fail to change the filibuster; voting rights legislation dies; Manchin and Sinema hold firm.",
+        world:"Novak Djokovic is detained at Melbourne airport over vaccine status and deported; he misses the Australian Open.",
+        culture:"HBO announces a Last of Us series; Euphoria Season 2 returns to dominate conversation.",
+        sports:"Aaron Rodgers's COVID lies cost him; Djokovic's visa circus overshadows the Australian Open.",
+        tech:"Tonga's Hunga-Tonga undersea volcano erupts in the largest explosion since 1883, severing the island's internet.",
+        science:"Tonga's eruption is so powerful it sends pressure waves around the Earth twice and reaches the stratosphere."
+      },
+      '2022-02':{
+        politics:"Russia launches a full-scale invasion of Ukraine; the world imposes sweeping economic sanctions within days.",
+        world:"The Beijing Winter Olympics unfolds under COVID restrictions and geopolitical tension.",
+        culture:"The Canadian trucker convoy paralyzes Ottawa for weeks; copycat protests spread across the Western world.",
+        sports:"Eileen Gu wins gold for China; Nathan Chen dominates figure skating; Ukraine's team competes under shadow of war.",
+        tech:"Meta's stock falls $230 billion in a single day — the largest one-day loss in market cap history.",
+        science:"Scientists publish new evidence that Mars once had a global ocean covering nearly half its surface."
+      },
+      '2022-03':{
+        politics:"Biden delivers his first State of the Union and nominates Ketanji Brown Jackson to the Supreme Court.",
+        world:"Russian forces besiege Mariupol; a global refugee crisis grows as millions flee Ukraine.",
+        culture:"Will Smith walks on stage at the Oscars and slaps Chris Rock; the industry talks about nothing else for weeks.",
+        sports:"Kansas wins the NCAA tournament with a historic comeback; Villanova loses to Kansas in the Final Four.",
+        tech:"Elon Musk begins disclosing a stake in Twitter; crypto markets swing wildly amid war-driven uncertainty.",
+        science:"Omicron's BA.2 subvariant spreads rapidly; scientists track COVID's ongoing evolution with new urgency."
+      },
+      '2022-05':{
+        politics:"A leaked Supreme Court draft opinion reveals Roe v. Wade will be overturned; protests erupt at justices' homes.",
+        world:"A gunman kills 19 children and 2 teachers at Robb Elementary School in Uvalde, Texas.",
+        culture:"The Johnny Depp vs. Amber Heard defamation trial is broadcast live; social media picks sides obsessively.",
+        sports:"The Golden State Warriors beat the Dallas Mavericks to reach the NBA Finals against the Celtics.",
+        tech:"Elon Musk offers $44 billion to buy Twitter, then immediately raises doubts about whether he will close the deal.",
+        science:"Monkeypox cases spread across multiple countries in an unusual outbreak; the WHO convenes an emergency meeting."
+      },
+      '2022-07':{
+        politics:"Roe v. Wade is officially overturned; states rush to ban abortion; protesters fill courthouse steps nationwide.",
+        world:"Former Japanese Prime Minister Shinzo Abe is assassinated while giving a campaign speech in Nara.",
+        culture:"Thor: Love and Thunder and Nope compete at the box office; Stranger Things Season 4 finale breaks Netflix records.",
+        sports:"The Warriors win the NBA Championship; Wimbledon bans Russian players and proceeds without them.",
+        tech:"Twitter sues Elon Musk to force him to close the $44 billion acquisition deal he is trying to escape.",
+        science:"James Webb Space Telescope releases its first color images — the deepest infrared view of the universe ever taken."
+      },
+      '2022-08':{
+        politics:"FBI agents search Mar-a-Lago for classified documents — the first search of a former president's home.",
+        world:"Nancy Pelosi visits Taiwan; China launches its largest-ever military exercises around the island in response.",
+        culture:"Salman Rushdie is stabbed on stage in New York, 33 years after the fatwa; Top Gun: Maverick crosses $1 billion.",
+        sports:"Serena Williams announces her retirement from tennis at the US Open; a farewell unlike anything the sport has seen.",
+        tech:"The Inflation Reduction Act is signed — the largest climate investment in US history, with $369 billion for clean energy.",
+        science:"Artemis I's Space Launch System rolls to the launch pad; NASA prepares to return humans to the Moon."
+      },
+      '2022-09':{
+        politics:"Queen Elizabeth II dies at 96 after a 70-year reign; King Charles III ascends the throne.",
+        world:"Hurricane Ian makes catastrophic landfall in Florida; more than 100 people die and damage tops $109 billion.",
+        culture:"House of the Dragon premieres to record HBO viewership; the Game of Thrones universe lives again.",
+        sports:"Aaron Judge hits his 62nd home run, breaking Roger Maris's 61-year-old American League record.",
+        tech:"Russia illegally annexes four Ukrainian regions in sham referendums; global condemnation is immediate.",
+        science:"NASA's DART spacecraft slams into the asteroid Dimorphos and changes its orbit — the first successful planetary defense test."
+      },
+      '2022-10':{
+        politics:"Brazil's Luiz Inácio Lula da Silva defeats Bolsonaro in a narrow, tense election; the far right refuses to accept it.",
+        world:"Iran ignites with protests after Mahsa Amini dies in the custody of the morality police.",
+        culture:"Kanye West's antisemitic statements cost him partnerships with Adidas, Balenciaga, and Gap in rapid succession.",
+        sports:"The Philadelphia Phillies stun everyone to reach the World Series; Houston Astros face them in a rematch.",
+        tech:"Elon Musk completes his $44 billion Twitter acquisition; he fires the top executives on his first day.",
+        science:"The Nobel Prize in Physics goes to Alain Aspect, John Clauser, and Anton Zeilinger for quantum entanglement research."
+      },
+      '2022-11':{
+        politics:"The red wave fails to materialize in the US midterms; Republicans barely take the House; Democrats keep the Senate.",
+        world:"The FIFA World Cup opens in Qatar; the first World Cup in the Middle East is surrounded by human rights controversy.",
+        culture:"Black Panther: Wakanda Forever opens as a tribute to Chadwick Boseman and crosses $400 million opening weekend.",
+        sports:"Lionel Messi and Argentina enter the World Cup as favorites; the tournament begins its stunning run.",
+        tech:"FTX, the crypto exchange, collapses in 72 hours; Sam Bankman-Fried's $32 billion empire evaporates.",
+        science:"Artemis I successfully launches after multiple scrubs; the Orion capsule is on its way to lunar orbit."
+      },
+      '2022-12':{
+        politics:"Kevin McCarthy fails to secure Speaker votes as the year ends; the standoff spills into January.",
+        world:"Argentina wins the FIFA World Cup in a penalty shootout; Messi finally lifts the trophy after four attempts.",
+        culture:"Brittney Griner is released from a Russian prison in exchange for arms dealer Viktor Bout.",
+        sports:"The World Cup final between Argentina and France is widely called the greatest game ever played.",
+        tech:"Twitter implodes under Musk; advertisers flee, verified chaos reigns, and thousands of employees resign.",
+        science:"NASA's Orion capsule splashes down safely after Artemis I; the path back to the Moon is confirmed."
+      },
+      '2023-01':{
+        politics:"Kevin McCarthy wins the House Speakership after 15 rounds of voting; George Santos is exposed as a serial fabulist.",
+        world:"Brazilian Congress is stormed by Bolsonaro supporters on January 8 in a deliberate echo of the January 6 attack.",
+        culture:"Damar Hamlin suffers cardiac arrest on the Monday Night Football field; his recovery captivates the nation.",
+        sports:"The Bills-Bengals game is suspended; Hamlin's collapse and recovery become the sports story of the winter.",
+        tech:"Microsoft announces a $10 billion investment in OpenAI and ChatGPT, triggering an AI gold rush.",
+        science:"ChatGPT reaches 100 million users in two months — the fastest app to do so in history."
+      },
+      '2023-02':{
+        politics:"A Chinese spy balloon traverses the continental US before the Air Force shoots it down off South Carolina.",
+        world:"A 7.8-magnitude earthquake strikes Turkey and Syria; more than 56,000 people are killed.",
+        culture:"Super Bowl LVII sees the Chiefs beat the Eagles 38-35; Rihanna's halftime show reveals she is pregnant.",
+        sports:"Patrick Mahomes wins his second Super Bowl MVP; the Chiefs are champions again.",
+        tech:"A Norfolk Southern train derails in East Palestine, Ohio, releasing toxic chemicals into the air and water.",
+        science:"Scientists using LIGO detect a faint hum of gravitational waves from countless merging black holes across the universe."
+      },
+      '2023-03':{
+        politics:"Donald Trump is indicted in New York over hush money payments — the first criminal charges against a former US president.",
+        world:"Silicon Valley Bank collapses in the second-largest US bank failure in history; Signature Bank follows.",
+        culture:"Everything Everywhere All at Once sweeps the Oscars; Michelle Yeoh becomes the first Asian woman to win Best Actress.",
+        sports:"March Madness delivers upsets; San Diego State and Florida Atlantic crash the Final Four as Cinderella teams.",
+        tech:"TikTok's CEO faces five hours of hostile questioning before Congress; a US ban moves closer to reality.",
+        science:"GPT-4 is released by OpenAI; Google launches Bard; the AI arms race between tech giants goes fully public."
+      },
+      '2023-05':{
+        politics:"The US debt ceiling standoff pushes to the brink; Biden and McCarthy negotiate through the night to avoid default.",
+        world:"Civil war erupts in Sudan between the army and the RSF paramilitary; millions flee Khartoum.",
+        culture:"Hollywood writers go on strike; Succession's finale becomes one of the most discussed hours in TV history.",
+        sports:"Jimmy Butler's Miami Heat pull off yet another NBA playoff run, reaching the Finals as an eighth seed.",
+        tech:"Montana becomes the first US state to ban TikTok; a legal challenge is immediately filed.",
+        science:"The WHO officially ends the COVID-19 global health emergency, three years and hundreds of millions of cases later."
+      },
+      '2023-06':{
+        politics:"Trump is indicted on 37 federal counts for retaining classified documents — his first federal indictment.",
+        world:"Russia's Wagner Group mercenaries launch a mutiny; Prigozhin marches on Moscow, then abruptly turns back.",
+        culture:"The Titan submersible implodes near the Titanic, killing all five aboard; wall-to-wall coverage grips the world.",
+        sports:"The Denver Nuggets win their first NBA Championship; Nikola Jokic wins Finals MVP.",
+        tech:"Thousands of subreddits go dark to protest Reddit's API pricing changes in a rare coordinated platform revolt.",
+        science:"Scientists detect high-energy neutrino particles originating from outside the Milky Way for the first time."
+      },
+      '2023-07':{
+        politics:"Trump faces his third federal indictment — this one over January 6 — with a fourth Georgia indictment weeks away.",
+        world:"A military coup ousts Niger's elected president; coup fever spreads across West Africa.",
+        culture:"Barbie and Oppenheimer open on the same day; Barbenheimer becomes the biggest theatrical event in years.",
+        sports:"Carlos Alcaraz beats Novak Djokovic at Wimbledon in a five-set thriller; SAG-AFTRA joins the writers strike.",
+        tech:"Meta launches Threads to challenge Twitter; 100 million users sign up in five days — a record.",
+        science:"July 4, 2023 is the hottest day in recorded human history; the record is broken again the next day."
+      },
+      '2023-09':{
+        politics:"Kevin McCarthy is ousted as House Speaker by Matt Gaetz — the first Speaker removed in US history.",
+        world:"Libya floods kill more than 11,000; a Morocco earthquake kills 3,000; two disasters in one week stun the world.",
+        culture:"The UAW strikes against Ford, GM, and Stellantis simultaneously; Shawn Fain becomes labor's new face.",
+        sports:"Coco Gauff wins the US Open women's title; Novak Djokovic wins the men's; a thrilling fortnight at Flushing Meadows.",
+        tech:"India's Chandrayaan-3 successfully lands near the Moon's south pole — the first country to reach that region.",
+        science:"Chandrayaan-3's rover detects sulfur near the lunar south pole, confirming new chemistry and water-ice potential."
+      },
+      '2023-11':{
+        politics:"The Israel-Gaza ground war intensifies after Hamas's October 7 massacre; international calls for a ceasefire grow.",
+        world:"Mike Johnson is elected House Speaker after three weeks of chaos — an unknown congressman catapulted to power.",
+        culture:"OpenAI's board fires Sam Altman on a Friday; a staff revolt and Microsoft pressure restore him by Sunday.",
+        sports:"Argentina's Javier Milei wins the presidential election on a chainsaw-wielding libertarian platform.",
+        tech:"The OpenAI boardroom drama becomes the most-watched tech story of the year; the AI governance crisis is real.",
+        science:"The FDA approves the first CRISPR-based gene therapy — a cure for sickle cell disease after decades of research."
+      },
+      '2024-02':{
+        politics:"Alexei Navalny dies in a Russian Arctic prison; Western governments blame Putin directly.",
+        world:"Haiti's capital Port-au-Prince is overrun by gangs; the prime minister is forced to resign.",
+        culture:"Super Bowl LVIII: the Chiefs beat the 49ers in overtime; Taylor Swift and Travis Kelce are everywhere.",
+        sports:"Patrick Mahomes wins his third Super Bowl ring; the Chiefs become back-to-back champions.",
+        tech:"The Alabama Supreme Court rules frozen embryos are legally children; IVF providers pause services across the state.",
+        science:"Scientists report that 2023 was the hottest year on record by the widest margin ever measured."
+      },
+      '2024-04':{
+        politics:"Donald Trump's criminal hush money trial begins in Manhattan — the first criminal trial of a US president.",
+        world:"Iran launches more than 300 drones and ballistic missiles at Israel in a direct attack; Israel intercepts most.",
+        culture:"A total solar eclipse crosses North America from Mexico to Maine; millions gather outside to watch.",
+        sports:"UConn wins its second consecutive NCAA championship; Caitlin Clark breaks the all-time NCAA scoring record.",
+        tech:"Biden signs a law giving ByteDance one year to divest TikTok or face a US ban.",
+        science:"The April 8 solar eclipse provides scientists a rare window to study the corona with synchronized observations."
+      },
+      '2024-05':{
+        politics:"Trump is found guilty on all 34 felony counts in the hush money trial — the first sitting or former US president convicted of a crime.",
+        world:"Pro-Palestinian campus protests sweep universities from Columbia to UCLA; police are called to clear encampments.",
+        culture:"Drake and Kendrick Lamar's rap beef escalates to Not Like Us; the diss track becomes a cultural event.",
+        sports:"Caitlin Clark makes her WNWA debut to massive ratings; the Indiana Fever break attendance records.",
+        tech:"OpenAI launches GPT-4o; Google I/O announces AI in every product; the generative AI race reaches a new tempo.",
+        science:"H5N1 bird flu spreads to US dairy cattle; the first human case in a farm worker is confirmed; the CDC activates."
+      },
+      '2024-07':{
+        politics:"Biden withdraws from the presidential race and endorses Kamala Harris; a gunman grazes Trump at a Pennsylvania rally.",
+        world:"Venezuela's election results are disputed; Maduro claims victory amid massive evidence of fraud; protests erupt.",
+        culture:"The Paris Olympics opens with a stunning ceremony along the Seine River; millions tune in worldwide.",
+        sports:"A CrowdStrike software update crashes 8.5 million Windows devices globally, grounding flights and halting hospitals.",
+        tech:"The CrowdStrike outage is the largest IT outage in history; the fragility of global software dependency is exposed.",
+        science:"Olympic athletes competing in the Paris heat face measurable performance effects tied to climate-driven temperature records."
+      },
+      '2024-08':{
+        politics:"The Democratic National Convention nominates Kamala Harris in Chicago; a generational energy fills the hall.",
+        world:"Ukraine launches a surprise military offensive into Russia's Kursk region — the first foreign incursion into Russia since WWII.",
+        culture:"Simone Biles wins gold and redeems her Tokyo story; Noah Lyles wins the 100m by five-thousandths of a second.",
+        sports:"The Paris Olympics delivers the most-watched Summer Games since London 2012; Team USA tops the medal table.",
+        tech:"Telegram CEO Pavel Durov is arrested in France over allegations that the platform facilitates illegal activity.",
+        science:"GLP-1 weight loss drugs — Ozempic and Wegovy — are declared the most consequential class of medicines in a generation."
+      },
+      '2024-09':{
+        politics:"Harris and Trump debate; a claim that Haitian migrants are eating pets in Springfield, Ohio goes viral instantly.",
+        world:"Hurricane Helene strikes the North Carolina mountains with catastrophic inland flooding; more than 200 people die.",
+        culture:"The Wicked trailer breaks records; fall film season kicks off with Joker 2 and a packed awards slate.",
+        sports:"Jannik Sinner wins the US Open men's title; Aryna Sabalenka takes the women's; a new generation claims tennis.",
+        tech:"SpaceX's Polaris Dawn mission completes the first private spacewalk in history — two civilians walk in space.",
+        science:"Israel kills Hezbollah leader Hassan Nasrallah in a Beirut airstrike, a month after detonating thousands of pagers."
+      },
+      '2024-10':{
+        politics:"Harris and Trump campaign furiously in seven swing states; every poll is within the margin of error.",
+        world:"Hurricane Milton strikes Florida just two weeks after Helene; the Gulf Coast is still reeling.",
+        culture:"Ariana Grande and Cynthia Erivo's Wicked press tour becomes a cultural event unto itself before the film opens.",
+        sports:"The Los Angeles Dodgers win the World Series in five games; Freddie Freeman's walk-off grand slam becomes iconic.",
+        tech:"SpaceX catches the Falcon Super Heavy booster with mechanical arms on the first attempt — Musk calls it impossible two years ago.",
+        science:"The Nobel Prize in Physics goes to Geoffrey Hinton and John Hopfield for the foundational work that made modern AI possible."
+      },
+      '2024-11':{
+        politics:"Donald Trump wins the presidency again, sweeping the Electoral College and winning the popular vote — a Republican first since 2004.",
+        world:"COP29 opens in Baku; developing nations demand far more climate finance than wealthy countries are offering.",
+        culture:"Wicked opens to a $164 million domestic weekend — the highest opening for a movie musical in history.",
+        sports:"Lamar Jackson and Josh Allen lead the NFL MVP race; the Kansas City Chiefs pursue an unprecedented third straight title.",
+        tech:"Elon Musk's central role in Trump's campaign raises immediate conflict-of-interest concerns for his government advisory role.",
+        science:"H5N1 continues spreading in dairy herds; scientists sequence a more virulent strain found in a critically ill patient."
+      },
+      '2024-12':{
+        politics:"Assad's regime collapses in Syria after a lightning rebel offensive; he flees to Moscow after 24 years in power.",
+        world:"South Korea's President Yoon declares martial law — then reverses within six hours after parliament votes against it.",
+        culture:"Notre-Dame Cathedral reopens in Paris after five years of post-fire restoration to a global celebration.",
+        sports:"The College Football Playoff expands to 12 teams for the first time; the Heisman goes to Oregon's Dillon Gabriel.",
+        tech:"UnitedHealthcare CEO Brian Thompson is shot dead outside a Manhattan hotel; Luigi Mangione is arrested days later.",
+        science:"Jimmy Carter dies at 100, the longest-lived US president; the 39th president was also a nuclear engineer and scientist."
+      },
+      '2025-02':{
+        politics:"DOGE, led by Elon Musk, begins mass firings across federal agencies; lawsuits and chaos follow in equal measure.",
+        world:"Los Angeles wildfires — burning since January — devastate Altadena and Pacific Palisades; damage tops $275 billion.",
+        culture:"Super Bowl LIX: the Eagles dominate the Chiefs 40-22; Kendrick Lamar performs Not Like Us at halftime to roars.",
+        sports:"Kendrick Lamar's halftime show becomes the most-discussed Super Bowl performance in years — and a victory lap.",
+        tech:"A leaked Signal chat shows Trump national security officials discussing Yemen airstrikes in real time; Hegseth is at the center.",
+        science:"DeepSeek R1 from a Chinese startup matches leading US AI models at a fraction of the cost, rattling Silicon Valley."
+      },
+      '2025-05':{
+        politics:"Trump's sweeping tax cut and spending bill passes Congress, including $1 trillion in Medicaid cuts over a decade.",
+        world:"India and Pakistan exchange missiles and drone fire in their worst conflict in decades following a Kashmir terror attack.",
+        culture:"Pope Francis dies at 88; Cardinal Robert Prevost is elected as Pope Leo XIV — the first American pope in history.",
+        sports:"NBA Playoffs: the Oklahoma City Thunder and Minnesota Timberwolves emerge as the West's dominant forces.",
+        tech:"The US and China agree to a 90-day tariff truce, pulling back from the brink of a full trade decoupling.",
+        science:"Scientists announce a potential breakthrough in room-temperature superconductivity, reigniting a decades-old quest."
+      },
+      '2025-06':{
+        politics:"Trump deploys Marines to Los Angeles amid ongoing protests; California sues the federal government.",
+        world:"An Air India Boeing 787 crashes shortly after takeoff in Ahmedabad, India, killing 240+ — the year's deadliest aviation disaster.",
+        culture:"Harvey Weinstein is convicted again in his Manhattan retrial; Greta Thunberg is detained after Israel seizes a Gaza aid flotilla.",
+        sports:"The French Open concludes: Jannik Sinner wins the men's title; Wimbledon preparations begin.",
+        tech:"The EU AI Act enters full effect, requiring AI companies to document and disclose high-risk systems across Europe.",
+        science:"Scientists confirm a direct causal link between Arctic sea ice loss and extreme heat waves in Europe and North America."
+      },
+      '2025-07':{
+        politics:"Trump signs the Big Beautiful Bill into law on July 4 — $1 trillion in Medicaid cuts; the US withdraws from UNESCO.",
+        world:"Russia claims full control of Ukraine's Luhansk Oblast; the EU criticizes Israel for restricting food aid into Gaza.",
+        culture:"Wimbledon: Iga Swiatek wins her first title 6-0, 6-0; England's women defeat Spain in the UEFA Women's Euro final.",
+        sports:"Iga Swiatek's dominant Wimbledon win and England's Euro triumph deliver two of the summer's defining sports moments.",
+        tech:"Trump announces 30% tariffs on all EU and Mexican imports effective August 1; markets brace for the impact.",
+        science:"CERN physicists detect new particle interactions that cannot be explained by the Standard Model — cracks in known physics."
+      }
+    };
+
+    const picker = document.getElementById('playlist-picker');
+    const panel  = document.getElementById('flashback-panel');
+    const label  = document.getElementById('flashback-month-label');
+    const grid   = document.getElementById('flashback-grid');
+
+    picker.addEventListener('change', function(){
+      const key = this.value;
+      if(!key || !D[key]){ panel.style.display='none'; return; }
+      const [yr, mo] = key.split('-');
+      label.textContent = '📅 ' + MONTHS[mo] + ' ' + yr + ' — Headlines';
+      grid.innerHTML = '';
+      CATS.forEach(function(cat){
+        const card = document.createElement('div');
+        card.className = 'fb-card';
+        card.style.borderLeftColor = cat.color;
+        card.innerHTML =
+          '<div class="fb-cat" style="color:'+cat.color+'">'+cat.icon+' '+cat.label+'</div>'+
+          '<div class="fb-text">'+D[key][cat.key]+'</div>';
+        grid.appendChild(card);
+      });
+      panel.style.display='block';
+      panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+  })();
+  </script>
+
   <!-- ─── PLAYLIST DIRECTORY ─── -->
   <div class="section">
     <h2>The Complete Playlist Directory</h2>
