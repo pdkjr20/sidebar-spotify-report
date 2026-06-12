@@ -1,4 +1,5 @@
 @echo off
+cd /d "C:\Users\pdkjr\OneDrive\01 PROJECT\Side Bar Spotify"
 echo Deploying preview branch...
 
 :: Remove ALL git lock files (OneDrive leaves these behind)
