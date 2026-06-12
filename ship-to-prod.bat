@@ -10,6 +10,11 @@ if exist ".git\COMMIT_EDITMSG.lock" del /f /q ".git\COMMIT_EDITMSG.lock"
 if exist ".git\config.lock"         del /f /q ".git\config.lock"
 echo Lock files cleared.
 
+:: Discard CRLF-only line-ending noise that OneDrive/editors can introduce.
+:: This is just whitespace churn (no real content change) and would otherwise
+:: block "git checkout main" / "git merge preview" below.
+git checkout -- README.md index.html
+
 :: Commit any pending changes on preview first (uncommitted changes
 :: would block "git checkout main" and silently abort the merge)
 git checkout preview
