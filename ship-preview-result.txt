@@ -1,0 +1,13 @@
+On branch preview
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	ship-preview-result.txt
+	ship-preview.bat
+
+nothing added to commit but untracked files present (use "git add" to track)
+ 
+44b297f Add Ten Years of Porch Weather section
+12a99f2 Promote weather on playlists
+b7e8146 Fix JS syntax error in D object; add ship-to-prod.bat
+1872b7f Add Weather on the Porch — real session dates + historical weather for all 89 playlists
+8fe29c2 Update Side Bar report
